@@ -12,7 +12,8 @@ class Dashboard extends Component {
 
     componentWillMount() {
         store.dispatch({
-            type: "getchats"
+            type: "getchats",
+            
         })
     }
     
@@ -35,7 +36,7 @@ class Dashboard extends Component {
                 <NavBar />
                 <h2 style={{ textAlign: "center" }}>Dashboard</h2>
                 <Container>
-                    {this.props.allchats.map((item, index) => {
+                    {this.props.chats.map((item, index) => {
                         return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "5%" }}>
                             <Card.Body>
                                 <Card.Title style={{ textAlign: "center" }}>{item.publicUser.name}</Card.Title>
@@ -55,10 +56,10 @@ class Dashboard extends Component {
 const chatbox = (store) => {
     console.log("chats  ", store.architectsReducer.chats)
     return { logedIn: store.loginReducer.logedIn,user: store.loginReducer.user,
-         allchats: store.architectsReducer.chats }
+         chats: store.architectsReducer.chats }
 
 
 }
 
-let ArchitectDashboard = connect(chatbox)(Dashboard);
-export default ArchitectDashboard;
+let BuilderDashboard = connect(chatbox)(Dashboard);
+export default BuilderDashboard;

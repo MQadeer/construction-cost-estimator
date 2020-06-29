@@ -58,6 +58,15 @@ function NavigationBar(props) {
             type: "logout",
         })
     }
+
+    const openDashboard=()=>{
+        console.log("checking user type ")
+        const type =props.userinfo.type
+        if(type=="architechturer"){
+            return <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link> 
+            
+        }
+    }
     const classes = useStyles();
 
     return (
@@ -69,6 +78,7 @@ function NavigationBar(props) {
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/">Home</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/materialsPage" >Material Price</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/architecturers" >Architecturers</Link></Nav.Link>
+                    <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/builders" >builders</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/" >Cost Estimator</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/about">About Us</Link></Nav.Link>
                     {/* {
@@ -76,6 +86,7 @@ function NavigationBar(props) {
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link> : null
 
                     } */}
+                    {/* {openDashboard()} */}
                 </Nav>
                 {props.logedIn ?
                     <Button size="lg" className={classes.signinButton} onClick={logOut}>Logout</Button> :
@@ -119,8 +130,9 @@ function NavigationBar(props) {
                             <option value="publicUser" >select one</option>
                             <option value="publicUser" >Open user</option>
                             <option value="architechturer" >Architechturer</option>
+                            <option value="builder" >Builder</option>
                         </Form.Control>
-                        <Form.Control as="textarea" className={classes.formItems} type="text" placeholder="Describe yourself(only for architecturers) "
+                        <Form.Control as="textarea" className={classes.formItems} type="text" placeholder="Describe yourself(only for architecturers/builders) "
                             onChange={(e) => { setDescription(e.target.value) }} />
                     </Modal.Body>
                     <Modal.Footer>
@@ -139,7 +151,7 @@ function NavigationBar(props) {
 
 const loginStatus = (store) => {
     console.log("login status ", store.loginReducer.logedIn)
-    return { logedIn: store.loginReducer.logedIn }
+    return { logedIn: store.loginReducer.logedIn,user: store.loginReducer.user }
 
 
 }

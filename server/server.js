@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const materialsRouter = require('./routes/materials');
 const loginRouter = require("./routes/login");
 const architectsRoute = require("./routes/architects");
+const buildersRoute = require("./routes/builders");
 const chatRoute = require("./routes/chats");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
@@ -52,11 +53,11 @@ io.on('connect', (socket) => {
 
         // if (error) return callback(error);
 
-        socket.join(user.room);
+        socket.join(room);
         MongoClient.connect(uri, { useNewUrlParser: true })
             .then(client => {
                 const collection = client.db("cce").collection("chatRooms");
-                collection.updateOne({ room: user.room }, { $set: { room: user.room } },
+                collection.updateOne({ room: user.room }, { $set: { room: user.room,publicUser:{name:logeduser.name} } },
                     { upsert: true }, function (resp) {
                         console.log(resp);
                     })
@@ -84,6 +85,7 @@ io.on('connect', (socket) => {
 server.use("/materials", materialsRouter);
 server.use("/login", loginRouter);
 server.use("/architects", architectsRoute);
+server.use("/builders", buildersRoute);
 server.use("/chats", chatRoute);
 
 server.post("/checkout", async (req, res) => {

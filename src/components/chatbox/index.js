@@ -38,7 +38,9 @@ class NChat extends Component {
     onSendMessage = (e) => {
         const message = this.state.message
         const logeduser=this.props.user
-        config.socket.emit('sendMessage', message,logeduser,() => document.getElementById("msg").value="");
+        document.getElementById("msg").value="";
+        config.socket.emit('sendMessage', message,logeduser,)
+        
     }
     render() {
         return (

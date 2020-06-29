@@ -1,6 +1,7 @@
 import materialsServices from "../services/materials";
+import history from "../../history";
 
-const materialsReducer = (state = { materials: [] }, action) => {
+const materialsReducer = (state = { materials: [],buildingValues:{} }, action) => {
     switch (action.type) {
         case "getMaterials":
             materialsServices.getMaterials();
@@ -12,6 +13,9 @@ const materialsReducer = (state = { materials: [] }, action) => {
             materialsServices.updateMaterials(action.payload)
             console.log("reducer updated materials : ", action.payload)
             return state
+        case "calculateCost":
+            history.push("./materialsPage")
+            return {buildingValues:action.payload}
         default:
             return state
     }

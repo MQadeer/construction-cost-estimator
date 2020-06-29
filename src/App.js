@@ -11,6 +11,8 @@ import NArchitechturers from "./components/architechturers/index";
 import Chatbox from "./components/chatbox/index";
 import ArchitectsChatbox from "./components/chatbox/architectChatbox";
 import ArchitectDashboard from "./components/architectDashboard/index";
+import Builders from "./components/builders/index";
+import BuilderDashboard from "./components/builderDashboard/index"
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route exact path='/dashboard' component={nDashboard}></Route>
           <Route exact path='/architecturers' component={NArchitechturers}></Route>
           <Route exact path='/architecturersDshboard' component={ArchitectDashboard}></Route>
+          <Route exact path='/builders' component={Builders}></Route>
+          <Route exact path='/buildersDshboard' component={BuilderDashboard}></Route>
           <Route exact path='/chatRoom' component={Chatbox}></Route>
           <Route exact path='/chatBox' component={ArchitectsChatbox}></Route>
         </header>

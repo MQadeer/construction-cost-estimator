@@ -12,6 +12,12 @@ class MaterialPricing extends Component {
     })
   }
 
+  calculateCost=(values)=>{
+    return(
+    <h1>{values.marla}</h1>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -38,10 +44,10 @@ class MaterialPricing extends Component {
                   <td>{item.priceTo}</td>
                 </tr>
               })}
-
             </tbody>
           </Table>
         </Container>
+              {/* {this.calculateCost(this.props.buildingValues)} */}
         <Footer />
       </div>
     )
@@ -50,8 +56,8 @@ class MaterialPricing extends Component {
 
 const alMaterials = (store) => {
   if (store.materialsReducer.materials) {
-    console.log("data in materials page", store.materialsReducer.materials)
-    return { allMaterials: store.materialsReducer.materials }
+    console.log("data in materials page", store.materialsReducer.buildingValues)
+    return { allMaterials: store.materialsReducer.materials,buildingValues: store.materialsReducer.buildingValues }
   }
   else {
     return { materials: {} }

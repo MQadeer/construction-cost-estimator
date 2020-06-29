@@ -16,6 +16,8 @@ const loginServices = {
                 }
                 else if(res.data.user=="architechturer"){
                     history.push("/architecturersDshboard")
+                }else if(res.data.user=="builder"){
+                    history.push("/buildersDshboard")
                 }
                 return store.dispatch({
                     type: "loginSuccess",
