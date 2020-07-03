@@ -66,6 +66,21 @@ const loginServices = {
 
                 console.log(err.message)
             })
+    },
+    contactRequest:(info)=>{
+        console.log("in contatc request ", info)
+        axios.post('/login/contactRequest', info)
+            .then(res => {
+                console.log(res)
+                if (res.data == "success") {
+                    alert("Message sent")
+                }
+            })
+            .catch(err => {
+                alert("Sending failed")
+
+                console.log(err.message)
+            })
     }
 }
 

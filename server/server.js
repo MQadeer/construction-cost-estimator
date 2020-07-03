@@ -54,6 +54,7 @@ io.on('connect', (socket) => {
         // if (error) return callback(error);
 
         socket.join(room);
+        
         MongoClient.connect(uri, { useNewUrlParser: true })
             .then(client => {
                 const collection = client.db("cce").collection("chatRooms");

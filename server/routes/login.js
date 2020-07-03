@@ -40,5 +40,29 @@ routes.post('/signUp', function (req, res) {
     })
 })
 
+routes.post('/contactRequest', function (req, res) {
+  MongoClient.connect(uri, { useNewUrlParser: true })
+    .then(client => {
+      const data = req.body;
+      const collection = client.db("cce").collection("contactRequests");
+      collection.insertOne({name:data.name,email:data.email,subject:data.subject,message:data.message},function (err, resp) {
+        // res.json(resp)
+        if(err){
+          res.send("error")
+        }
+        else{
+          res.send("success")
+        }
+        client.close();
+
+
+      })
+    }).catch(err => {
+      console.log("error is : ", err)
+      res.send("error")
+
+    })
+})
+
 
 module.exports = routes;
