@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Form, Button, Modal, DropdownButton, Dropdown } from "react-bootstrap";
+import { Navbar, Nav, Form, Button, Modal, DropdownButton, Dropdown,Image } from "react-bootstrap";
 import { makeStyles } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import useStyles from "./styles.js";
@@ -71,7 +71,8 @@ function NavigationBar(props) {
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="light">
-            <Navbar.Brand href="#home">H.C.E</Navbar.Brand>
+            <Navbar.Brand href="#home"><Image src={require("../../images/logo.png")} rounded 
+            style={{height:70,width:140}} /></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto" style={{ backgroundColor: "#0594a9", marginRight: "2%", borderRadius: 5 }} >

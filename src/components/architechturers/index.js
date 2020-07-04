@@ -7,6 +7,7 @@ import NavigationBar from "../navbar/index";
 import Footer from "../footer/index";
 import history from "../../history";
 import config from "../../config";
+import Axios from "axios"
 
 
 
@@ -39,7 +40,7 @@ class Architechturers extends Component {
   startChat = (e) => {
     if (this.props.logedIn == false) {
       alert("login to start chat")
-    } 
+    }
     else {
       let architect = this.props.architectsList.find(o => o._id == e.target.value)
       console.log(architect)
@@ -54,6 +55,18 @@ class Architechturers extends Component {
   }
 
   handleToken = (token) => {
+    const amount = this.state.amount
+    Axios.post("/checkout",
+      { token, amount }
+    ).then(response => {
+      console.log("payment Response:", response.data);
+      if (response === "success") {
+        alert("Success! ");
+      } else {
+        alert("Something went wrong");
+      }
+    })
+
 
   }
 
@@ -64,17 +77,17 @@ class Architechturers extends Component {
         <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Architechturers</h1>
         <Container style={{ marginTop: "3%", paddingBottom: "5%" }}>
           {this.props.architectsList.map((item, index) => {
-            return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "7%",marginTop:"5%" }}>
+            return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "7%", marginTop: "5%" }}>
               <Card.Img variant="top" />
               <Card.Body>
                 <Card.Title style={{ textAlign: "center" }}>{item.name}</Card.Title>
                 <Card.Text style={{ height: 200, overflow: "auto" }}>{item.description}</Card.Text>
-                <Button variant="primary" onClick={this.handleShow} style={{marginRight:"2%"}}>Make an offer</Button>
+                <Button variant="primary" onClick={this.handleShow} style={{ marginRight: "2%" }}>Make an offer</Button>
                 <Button variant="primary" value={item._id} onClick={this.startChat.bind(this)}>Start Chat</Button>
                 <StripeCheckout
                   stripeKey="pk_test_51Grn9xAcjRPhUTEWkO5IIHfOUgERUfuBsx89c4UQIBVurvSzVe1rDeAQ5O8gDQRmOY3Qdk5GtRNfG3oOZvPCtxK100mUPtL38T"
                   token={this.handleToken} amount={this.state.amount}
-                  style={{marginTop:"2%"}}
+                  style={{ marginTop: "2%" }}
                 />
               </Card.Body>
             </Card>
