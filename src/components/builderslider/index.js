@@ -5,7 +5,7 @@ import { Container, Row } from "react-bootstrap"
 
 
 
-export default class MultiImageSlider extends Component {
+export default class BuilderMultiImageSlider extends Component {
     state = {
         no: 0,
         company: {
@@ -37,8 +37,8 @@ export default class MultiImageSlider extends Component {
     }
     render() {
         return (
-            <div style={{backgroundColor:"#fcfafa"}}>
-                <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Architect Agencies</h1>
+            <div style={{backgroundColor:"#fcfafa",marginTop:"5%"}}>
+                <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Builder Agencies</h1>
                 <Container style={{ alignContent: "center" }}>
                     <AliceCarousel mouseTrackingEnabled autoPlay={true} autoPlayInterval={1200} responsive={this.responsive}
                         mouseDragEnabled={true} buttonsDisabled={true} onSlideChange={this.onSlideChange}>

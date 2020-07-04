@@ -3,6 +3,7 @@ import NavigationBar from "../navbar/index";
 import CCE from "../cce/index";
 import Footer from "../footer/index";
 import MultiImageSlider from "../imageSlider/index";
+import BuilderMultiImageSlider from "../builderslider/index";
 import Testimonials from "../testimonials/index";
 import NArchitechturers from "../architechturers/index";
 import Dashboard from "../dashboard/index";
@@ -22,6 +23,7 @@ class Home extends Component {
         <NavigationBar logedIn={this.props.logedIn} userinfo={this.props.user} />
         <CCE />
         <MultiImageSlider />
+        <BuilderMultiImageSlider/>
         <Testimonials />
         <Footer />
       </>
