@@ -1,7 +1,7 @@
 import Axios from "axios";
 import store from "../store";
 
- const materialsServices={
+ const architectServices={
     getArchitects:()=>{
         Axios.get('/architects/getArchitects')
         .then(response=>{
@@ -20,7 +20,13 @@ import store from "../store";
                 payload: response.data
             })
         })
+    },
+    removeArchitect:(info)=>{
+        Axios.post('/architects/removeArchitect',info)
+        .then(response=>{
+            alert("Architect removed ")
+        })
     }
 }
 
-export default materialsServices;
+export default architectServices;

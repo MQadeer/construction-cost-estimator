@@ -6,6 +6,7 @@ import StripeCheckout from "react-stripe-checkout"
 import NavigationBar from "../navbar/index";
 import Footer from "../footer/index";
 import history from "../../history";
+import Axios from "axios";
 import config from "../../config";
 
 
@@ -54,7 +55,17 @@ class Nbuilders extends Component {
   }
 
   handleToken = (token) => {
-
+    const amount = (this.state.amount/167)*100
+    Axios.post("/checkout",
+      { token, amount }
+    ).then(response => {
+      console.log("payment Response:", response.data);
+      if (response === "success") {
+        alert("Success! ");
+      } else {
+        alert("Something went wrong");
+      }
+    })
   }
 
   render() {
@@ -73,7 +84,7 @@ class Nbuilders extends Component {
                 <Button variant="primary" value={item._id} onClick={this.startChat.bind(this)}>Start Chat</Button>
                 <StripeCheckout
                   stripeKey="pk_test_51Grn9xAcjRPhUTEWkO5IIHfOUgERUfuBsx89c4UQIBVurvSzVe1rDeAQ5O8gDQRmOY3Qdk5GtRNfG3oOZvPCtxK100mUPtL38T"
-                  token={this.handleToken} amount={this.state.amount}
+                  token={this.handleToken} amount={(this.state.amount/167)*100}
                   style={{marginTop:"2%"}}
                 />
               </Card.Body>

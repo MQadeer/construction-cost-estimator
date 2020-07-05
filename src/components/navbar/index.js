@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Form, Button, Modal, DropdownButton, Dropdown,Image } from "react-bootstrap";
+import { Navbar, Nav, Form, Button, Modal, DropdownButton, Dropdown, Image } from "react-bootstrap";
 import { makeStyles } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import useStyles from "./styles.js";
@@ -59,20 +59,23 @@ function NavigationBar(props) {
         })
     }
 
-    const openDashboard=()=>{
+    const openDashboard = () => {
         console.log("checking user type ")
-        const type =props.userinfo.type
-        if(type=="architechturer"){
-            return <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link> 
-            
+        const type = props.userinfo.type
+        if (type == "architechturer") {
+            return <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link>
+
         }
     }
     const classes = useStyles();
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="light">
-            <Navbar.Brand href="#home"><Image src={require("../../images/logo.png")} rounded 
-            style={{height:70,width:140}} /></Navbar.Brand>
+            <Navbar.Brand href="#home">
+                <Link  to="/">
+                    <Image src={require("../../images/logo.png")} rounded
+                        style={{ height: 70, width: 140 }} /></Link>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto" style={{ backgroundColor: "#0594a9", marginRight: "2%", borderRadius: 5 }} >
@@ -152,7 +155,7 @@ function NavigationBar(props) {
 
 const loginStatus = (store) => {
     console.log("login status ", store.loginReducer.logedIn)
-    return { logedIn: store.loginReducer.logedIn,user: store.loginReducer.user }
+    return { logedIn: store.loginReducer.logedIn, user: store.loginReducer.user }
 
 
 }

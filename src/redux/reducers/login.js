@@ -1,7 +1,7 @@
 import loginServices from "../services/login";
 import history from "../../history";
 
-const loginReducer = (state = { login: {}, signupSuccess: false, logedIn: false, user: {}, usertype: "" }, action) => {
+const loginReducer = (state = { login: {}, signupSuccess: false, logedIn: false, user: {},openSignup:false  }, action) => {
     switch (action.type) {
         case "login":
             loginServices.login(action.payload);
@@ -22,7 +22,7 @@ const loginReducer = (state = { login: {}, signupSuccess: false, logedIn: false,
 
         case "signup":
             loginServices.signup(action.payload)
-            return state 
+            return state
         case "signupSuccess":
             state.signupSuccess = true
             return state

@@ -9,11 +9,12 @@ const chatRoute = require("./routes/chats");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const stripe = require("stripe")();
+const stripe = require("stripe")("sk_test_51Grn9xAcjRPhUTEW5GSC1SlKDjZpWy55QJqgf1jvFzVOlh627IXHAYY5SVuPh7XqFPVlMCAaEm4WJjPvoeDlFexy00YpNP7QXv");
 const http = require('http');
 const socketio = require('socket.io');
 const MongoClient = require('mongodb').MongoClient;
 const uri = require("./db/db");
+const uuid=require("uuid/v4")
 const app = http.createServer(server);
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
@@ -102,10 +103,10 @@ server.post("/checkout", async (req, res) => {
             source: token.id
         });
 
-        const idempotency_key = uuid();
+        const idempotencyKey = uuid();
         const charge = await stripe.charges.create(
             {
-                amount: amount* 100,
+                amount: amount,
                 currency: "usd",
                 customer: customer.id,
                 receipt_email: token.email,
@@ -122,15 +123,13 @@ server.post("/checkout", async (req, res) => {
                 // }
             },
             {
-                idempotency_key
+                idempotencyKey
             }
         );
         console.log("Charge:", { charge });
-        status = "success";
         res.send("success")
     } catch (error) {
         console.error("Error:", error);
-        status = "failure";
         res.send("failure")
     }
 

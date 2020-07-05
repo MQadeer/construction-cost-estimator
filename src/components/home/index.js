@@ -6,7 +6,7 @@ import MultiImageSlider from "../imageSlider/index";
 import BuilderMultiImageSlider from "../builderslider/index";
 import Testimonials from "../testimonials/index";
 import NArchitechturers from "../architechturers/index";
-import Dashboard from "../dashboard/index";
+import Dashboard from "../dashboard/materials";
 import Chatbox from "../chatbox/index"
 import store from "../../redux/store";
 import { connect } from "react-redux"
@@ -34,7 +34,7 @@ class Home extends Component {
 const loginStatus = (store) => {
   console.log("loged in user ", store.loginReducer.user)
   console.log("login status ", store.loginReducer.logedIn)
-  return { logedIn: store.loginReducer.logedIn, user: store.loginReducer.user }
+  return { logedIn: store.loginReducer.logedIn, user: store.loginReducer.user}
 
 
 }

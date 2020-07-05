@@ -1,19 +1,21 @@
-import materialsServices from "../services/architects";
+import architectServices from "../services/architects";
 
 const architectsReducer = (state = { architects: [],chats:[] }, action) => {
     switch (action.type) {
         case "getArchitects":
-            materialsServices.getArchitects();
+            architectServices.getArchitects();
             return state
         case "architectsRecieved":
             console.log("all architects",action.payload)
             return { architects: action.payload }
         case "getchats":
-            materialsServices.getChats()
+            architectServices.getChats()
             return state
         case "chatsRecieved":
             console.log("chats in reducer",action.payload )
             return { chats: action.payload }
+        case "removeArchitect":
+            architectServices.removeArchitect(action.payload);
         default:
             return state
     }

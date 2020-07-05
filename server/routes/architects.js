@@ -7,7 +7,6 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
 
-
 routes.get('/getArchitects', function (req, res) {
   MongoClient.connect(uri, { useNewUrlParser: true })
     .then(client => {
@@ -21,5 +20,15 @@ routes.get('/getArchitects', function (req, res) {
 })
 
 
-
+routes.post('/removeArchitect', function (req, res) {
+  MongoClient.connect(uri, { useNewUrlParser: true })
+    .then(client => {
+      const collection = client.db("cce").collection("users");
+      collection.findOneAndDelete({_id:new ObjectID(req.body.id)},function(err,resp){
+        console.log("archtechturers : ",resp);
+        res.send("success")
+        client.close();
+      })
+    })
+})
 module.exports = routes;

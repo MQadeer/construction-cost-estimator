@@ -68,7 +68,7 @@ const loginServices = {
             })
     },
     contactRequest:(info)=>{
-        console.log("in contatc request ", info)
+        console.log("in contatct request ", info)
         axios.post('/login/contactRequest', info)
             .then(res => {
                 console.log(res)

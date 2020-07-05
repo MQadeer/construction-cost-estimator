@@ -24,7 +24,7 @@ export default class ContactUs extends Component {
     else{
       store.dispatch({
         type: "ContactMessage",
-        payload: this.state
+        payload: values
       })
     }
     

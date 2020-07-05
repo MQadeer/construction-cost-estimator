@@ -7,7 +7,7 @@ import PrivacyPolicy from "./components/privacyPolicy/index";
 import TermsOfUse from "./components/termsOfUse/index";
 import { Provider } from "react-redux";
 import store from './redux/store';
-import nDashboard from './components/dashboard/index';
+import nDashboard from './components/dashboard/materials';
 import MaterialPricing from "./components/materialPrices/index";
 import NArchitechturers from "./components/architechturers/index";
 import Chatbox from "./components/chatbox/index";
