@@ -106,7 +106,7 @@ server.post("/checkout", async (req, res) => {
         const idempotencyKey = uuid();
         const charge = await stripe.charges.create(
             {
-                amount: amount,
+                amount: parseInt(amount),
                 currency: "usd",
                 customer: customer.id,
                 receipt_email: token.email,

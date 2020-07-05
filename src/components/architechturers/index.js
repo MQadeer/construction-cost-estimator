@@ -60,7 +60,7 @@ class Architechturers extends Component {
       { token, amount }
     ).then(response => {
       console.log("payment Response:", response.data);
-      if (response === "success") {
+      if (response == "success") {
         alert("Success! ");
       } else {
         alert("Something went wrong");

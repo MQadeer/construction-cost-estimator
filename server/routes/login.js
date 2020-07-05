@@ -54,8 +54,6 @@ routes.post('/contactRequest', function (req, res) {
           res.send("success")
         }
         client.close();
-
-
       })
     }).catch(err => {
       console.log("error is : ", err)

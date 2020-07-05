@@ -9,12 +9,12 @@ export default class BuilderMultiImageSlider extends Component {
     state = {
         no: 0,
         company: {
-            0: { name: "Six Sigma",properties:"180 properties for sale" },
-            1: { name: "Manahil Estate",properties:"160 properties for sale" },
-            2: { name: "My Real Estate",properties:"175 properties for sale" },
-            3: { name: "Haroons Estate",properties:"98 properties for sale" },
-            4: { name: "ilaan",properties:"67 properties for sale" },
-            5: { name: "Al AMEER",properties:"190 properties for sale" },
+            0: { name: "Architecture one Eight",properties:"180 properties for sale" },
+            1: { name: "Architecture your Tag line",properties:"160 properties for sale" },
+            2: { name: "Architects",properties:"175 properties for sale" },
+            3: { name: "Haoustica",properties:"98 properties for sale" },
+            4: { name: "Architecture",properties:"67 properties for sale" },
+            5: { name: "Architecture award 2012",properties:"190 properties for sale" },
             
         }
     }
@@ -42,13 +42,12 @@ export default class BuilderMultiImageSlider extends Component {
                 <Container style={{ alignContent: "center" }}>
                     <AliceCarousel mouseTrackingEnabled autoPlay={true} autoPlayInterval={1200} responsive={this.responsive}
                         mouseDragEnabled={true} buttonsDisabled={true} onSlideChange={this.onSlideChange}>
-                        <img src={require("../../images/sliderImages/1.jpg")} style={{height: "100%",width: "100%"}}  />
-                        <img src={require("../../images/sliderImages/2.jpg")} style={{height: "100%",width: "100%"}}  />
-                        <img src={require("../../images/sliderImages/3.jpg")} style={{height: "100%",width: "100%"}}  />
-                        <img src={require("../../images/sliderImages/4.jpg")} style={{height: "100%",width: "100%"}}  />
-                        <img src={require("../../images/sliderImages/5.jpg")} style={{height: "100%",width: "100%"}}  />
-                        <img src={require("../../images/sliderImages/6.jpg")} style={{height: "100%",width: "100%"}}  />
-
+                        <img src={require("../../images/sliderImages/New folder/1.jpg")} style={{height: "100%",width: "100%"}}  />
+                        <img src={require("../../images/sliderImages/New folder/2.jpg")} style={{height: "100%",width: "100%"}}  />
+                        <img src={require("../../images/sliderImages/New folder/3.jpg")} style={{height: "100%",width: "100%"}}  />
+                        <img src={require("../../images/sliderImages/New folder/4.jpg")} style={{height: "100%",width: "100%"}}  />
+                        <img src={require("../../images/sliderImages/New folder/5.jpg")} style={{height: "100%",width: "100%"}}  />
+                        <img src={require("../../images/sliderImages/New folder/6.jpg")} style={{height: "100%",width: "100%"}}  />
                     </AliceCarousel>
         <div style={{ textAlign: "center" }}><h3>{this.state.company[this.state.no].name}</h3></div>
                     <div style={{ textAlign: "center" }}>{this.state.company[this.state.no].properties}</div>
