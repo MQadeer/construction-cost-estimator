@@ -59,12 +59,14 @@ class Architechturers extends Component {
     Axios.post("/checkout",
       { token, amount }
     ).then(response => {
-      console.log("payment Response:", response.data);
-      if (response == "success") {
-        alert("Success! ");
-      } else {
-        alert("Something went wrong");
-      }
+      alert("Success! ");
+
+      // console.log("payment Response:", response.data);
+      // if (response == "success") {
+      //   alert("Success! ");
+      // } else {
+      //   alert("Something went wrong");
+      // }
     })
 
 
