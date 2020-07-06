@@ -90,7 +90,7 @@ class NCCE extends Component {
                     <Row style={{ marginTop: "3%" }}>
                         <Col md style={{ borderRight: "1px solid white", color: "white" }}>
                             <Row><h5 style={{ color: "#ffd700", margin: "auto", verticalAlign: "center" }}>
-                                Please provide plot & gate size</h5>
+                                Please fill the required fields</h5>
                             </Row>
                             <Form style={{ marginTop: "3%" }} >
                                 <Form.Row>
