@@ -14,6 +14,9 @@ import Axios from "axios"
 class Architechturers extends Component {
   state = {
     show: false,
+    showDescription: false,
+    offer:"",
+    amount:0,
   }
 
   componentWillMount() {
@@ -24,9 +27,26 @@ class Architechturers extends Component {
   handleClose = () => {
     this.setState({ show: false })
   };
-  handleShow = () => {
-    this.setState({ show: true })
+  handleShow = (e) => {
+    this.setState({ 
+      show: true,
+      architectsId:e.target.value
+    })
   };
+
+  showDescription = (e) => {
+    const architects = this.props.architectsList;
+    const architect = architects.find(i => i._id === e.target.value)
+    this.setState({
+      info: architect.description,
+      name: architect.name,
+      showDescription: true
+    })
+  }
+
+  closeDescription = () => {
+    this.setState({ showDescription: false })
+  }
 
   onchange = (prop, e) => {
     var obj = {};
@@ -34,8 +54,19 @@ class Architechturers extends Component {
     this.setState(obj);
     console.log(this.state);
   }
-  getoffer = (e) => {
-
+  submitOffer = () => {
+    if (this.props.logedIn == false) {
+      alert("login first")
+    }
+    else if(this.state.offer =="" || this.state.amount<500){
+     return alert("please fill the fields and amount should be more the 500 Pkr")
+    }
+    store.dispatch({
+      type:"saveoffer",
+      payload:{name:this.props.user.name,email:this.props.user.email ,description:this.state.offer,
+        amount:this.state.amount,architectsId:this.state.architectsId}
+    })
+    this.handleClose();
   }
   startChat = (e) => {
     if (this.props.logedIn == false) {
@@ -55,7 +86,7 @@ class Architechturers extends Component {
   }
 
   handleToken = (token) => {
-    const amount = (this.state.amount/167)*100
+    const amount = (this.state.amount / 167) * 100
     Axios.post("/checkout",
       { token, amount }
     ).then(response => {
@@ -77,22 +108,26 @@ class Architechturers extends Component {
       <div>
         <NavigationBar />
         <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Architechturers</h1>
-        <Container style={{ marginTop: "3%", paddingBottom: "5%" }}>
+        <Container fluid style={{ marginTop: "3%", paddingBottom: "5%" }}>
           {this.props.architectsList.map((item, index) => {
-            return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "7%", marginTop: "5%" }}>
+            return <Card key={index} style={{ width: '25rem', float: "left", marginRight: "3%", marginTop: "5%" }}>
               <Card.Img variant="top" />
               <Card.Body>
                 <Card.Title style={{ textAlign: "center" }}>{item.name}</Card.Title>
-                <Card.Text style={{ height: 200, overflow: "auto" }}>{item.description}</Card.Text>
-                <Button variant="primary" onClick={this.handleShow} style={{ marginRight: "2%" }}>Make an offer</Button>
-                <Button variant="primary" value={item._id} onClick={this.startChat.bind(this)}>Start Chat</Button>
+                <Card.Text >{item.description.slice(0, 25) + "..."}
+                  <Button variant="link" value={item._id} onClick={this.showDescription.bind(this)} style={{ marginRight: "2%" }}>read more</Button>
+                </Card.Text>
                 <StripeCheckout
                   stripeKey="pk_test_51Grn9xAcjRPhUTEWkO5IIHfOUgERUfuBsx89c4UQIBVurvSzVe1rDeAQ5O8gDQRmOY3Qdk5GtRNfG3oOZvPCtxK100mUPtL38T"
-                  token={this.handleToken} amount={(this.state.amount/167)*100}
+                  token={this.handleToken} amount={(this.state.amount / 167) * 100}
                   style={{ marginTop: "2%" }}
                 />
+                <Button variant="primary" value={item._id} onClick={this.handleShow.bind(this)} style={{ marginLeft: "2%" }}>Make an offer</Button>
+                <Button variant="success" value={item._id} onClick={this.startChat.bind(this)} style={{ marginLeft: "2%" }}>Start Chat</Button>
+
               </Card.Body>
             </Card>
+
           })}
 
         </Container>
@@ -109,9 +144,22 @@ class Architechturers extends Component {
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
           </Button>
-            <Button variant="primary" onClick={this.handleClose}>
+            <Button variant="primary" onClick={this.submitOffer}>
               Submit
           </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal show={this.state.showDescription} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+          <Modal.Header >
+            <Modal.Title id="contained-modal-title-vcenter">
+              {this.state.name}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{this.state.info}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.closeDescription}>Close</Button>
           </Modal.Footer>
         </Modal>
       </div>

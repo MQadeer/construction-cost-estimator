@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         width: "6%",
         paddingLeft: "1%",
         paddingRight: "1%",
-        marginTop: "2%",
+        marginTop: "3%",
         marginBottom: "2%",
     },
     registerButton: {
@@ -107,10 +107,12 @@ export default function Footer() {
                     </Button>
                 </Row>
                 <Row style={{ flex: 1, justifyContent: "center", borderTop: "2px solid " }}>
-                    <a href="https://www.facebook.com/" className={classes.socialIcons} ><Image src={facebook} roundedCircle /></a>
-                    <a href="https://www.twitter.com/" className={classes.socialIcons} ><Image src={twitter} /></a>
-                    <a href="https://www.google.com/" className={classes.socialIcons} ><Image src={google} /></a>
-                    <a href="https://www.linkedin.com/" className={classes.socialIcons} ><Image src={linkedin} /></a>
+                    <Col></Col><Col></Col><Col></Col><Col></Col>
+                    <Col md><a href="https://www.facebook.com/" className={classes.socialIcons} ><Image src={facebook} roundedCircle /></a></Col>
+                    <Col md><a href="https://www.twitter.com/" className={classes.socialIcons} ><Image src={twitter} /></a></Col>
+                    <Col md><a href="https://www.google.com/" className={classes.socialIcons} ><Image src={google} /></a></Col>
+                    <Col md><a href="https://www.linkedin.com/" className={classes.socialIcons} ><Image src={linkedin} /></a></Col>
+                    <Col></Col><Col></Col><Col></Col><Col></Col>
                 </Row>
             </Container>
             <Modal show={showSignup} onHide={signupClose}>

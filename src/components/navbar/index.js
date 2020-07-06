@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import useStyles from "./styles.js";
 import store from "../../redux/store";
 import { connect } from "react-redux";
-
+import input from "react-validation/build/input";
+import validator from 'validator';
 
 
 function NavigationBar(props) {
@@ -25,16 +26,42 @@ function NavigationBar(props) {
     // useEffect(()=>{},[props.logedIn])
 
     const handleSignIn = () => {
-        store.dispatch({
+        if(email=="admin"){
+            store.dispatch({
+                type: "login",
+                payload: {
+                    email: email,
+                    password: password,
+                    userType:userType
+                }
+            })
+            signinClose();
+        }
+        else if(!validator.isEmail(email)) {
+            document.getElementById("email").style.borderColor="red";
+            return alert("enter credentials correctly ")
+        }
+        else if(validator.isEmpty(password) || validator.isEmpty(userType)){
+            return alert("Complete all the fields ")
+        }
+        else{store.dispatch({
             type: "login",
             payload: {
                 email: email,
-                password: password
+                password: password,
+                userType:userType
             }
         })
-        signinClose();
+        signinClose();}
     }
     const handleSignUp = () => {
+        if(!validator.isEmail(email)){
+            document.getElementById("semail").style.borderColor="red";
+            return alert("enter correct values ")
+        }
+        else if(validator.isEmpty(password) || validator.isEmpty(userType) || validator.isEmpty(mobileno) || validator.isEmpty(fullname)){
+            return alert("Complete  the remaining fields ")
+        }
         store.dispatch({
             type: "signup",
             payload: {
@@ -72,7 +99,7 @@ function NavigationBar(props) {
     return (
         <Navbar collapseOnSelect expand="lg" bg="light">
             <Navbar.Brand href="#home">
-                <Link  to="/">
+                <Link to="/">
                     <Image src={require("../../images/logo.png")} rounded
                         style={{ height: 70, width: 140 }} /></Link>
             </Navbar.Brand>
@@ -101,9 +128,17 @@ function NavigationBar(props) {
                         <Modal.Title>Sign in</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form.Control className={classes.formItems} type="email" placeholder="email" onChange={(e) => { setemail(e.target.value) }} />
+                        <Form.Control id="email" className={classes.formItems} type="email" placeholder="email" onChange={(e) => { setemail(e.target.value) }} />
                         <Form.Control className={classes.formItems} type="password" placeholder="Password"
                             onChange={(e) => { setpassword(e.target.value) }} />
+                        <Form.Control className={classes.formItems} as="select" id="dropdown-basic-button" onChange={(e) => {
+                            setUserType(e.target.value)}}>
+                            <option value="publicUser" >select one</option>
+                            <option value="publicUser" >Open user</option>
+                            <option value="architechturer" >Architechturer</option>
+                            <option value="builder" >Builder</option>
+                            <option value="admin" >Admin</option>
+                        </Form.Control>
                         <Button variant="link" onClick={openSignupForm}>Create new account</Button>
                     </Modal.Body>
                     <Modal.Footer>
@@ -123,11 +158,11 @@ function NavigationBar(props) {
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Control className={classes.formItems} type="text" placeholder="Enter fullname" onChange={(e) => { setname(e.target.value) }} />
-                        <Form.Control className={classes.formItems} type="email" placeholder="Enter your email" onChange={(e) => { setemail(e.target.value) }} />
+                        <Form.Control id="semail" className={classes.formItems} type="email" placeholder="Enter your email" onChange={(e) => { setemail(e.target.value) }} />
                         <Form.Control className={classes.formItems} type="password" placeholder="Enter Password" onChange={(e) => { setpassword(e.target.value) }} />
-                        <Form.Control className={classes.formItems} type="number" placeholder="Enter your mobile no" onChange={(e) => { setmobileno(e.target.value) }} />
+                        <Form.Control className={classes.formItems} type="number" placeholder="Enter your mobile no" onChange={(e) => { setmobileno(e.target.value); }} />
                         <Form.Label className={classes.formItems}>Select user type</Form.Label>
-                        <Form.Control as="select" id="dropdown-basic-button" onChange={(e) => {
+                        <Form.Control  as="select" id="dropdown-basic-button" onChange={(e) => {
                             setUserType(e.target.value)
                             console.log(e.target.value)
                         }}>

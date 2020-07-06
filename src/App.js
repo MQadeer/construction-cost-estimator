@@ -7,7 +7,7 @@ import PrivacyPolicy from "./components/privacyPolicy/index";
 import TermsOfUse from "./components/termsOfUse/index";
 import { Provider } from "react-redux";
 import store from './redux/store';
-import nDashboard from './components/dashboard/materials';
+import Dashboard from './components/dashboard/index';
 import MaterialPricing from "./components/materialPrices/index";
 import NArchitechturers from "./components/architechturers/index";
 import Chatbox from "./components/chatbox/index";
@@ -29,7 +29,7 @@ function App() {
           <Route exact path='/privacy-policy' component={PrivacyPolicy}></Route>
           <Route exact path='/terms-of-use' component={TermsOfUse}></Route>
           <Route exact path='/materialsPage' component={MaterialPricing}></Route>
-          <Route exact path='/dashboard' component={nDashboard}></Route>
+          <Route exact path='/dashboard' component={Dashboard}></Route>
           <Route exact path='/architecturers' component={NArchitechturers}></Route>   
           <Route exact path='/architecturersDshboard' component={ArchitectDashboard}></Route>
           <Route exact path='/builders' component={Builders}></Route>

@@ -26,6 +26,12 @@ import store from "../store";
         .then(response=>{
             alert("Architect removed ")
         })
+    },
+    saveoffer:(info)=>{
+        Axios.post('/architects/addOffer',info)
+        .then(response=>{
+            alert("success")
+        })
     }
 }
 

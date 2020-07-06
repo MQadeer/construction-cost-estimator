@@ -61,6 +61,21 @@ routes.post('/contactRequest', function (req, res) {
 
     })
 })
+routes.get('/getContactRequest', function (req, res) {
+  MongoClient.connect(uri, { useNewUrlParser: true })
+    .then(client => {
+      const collection = client.db("cce").collection("contactRequests");
+      collection.find().toArray((err, items) => {
+        console.log("contact requests : ",items);
+        res.json(items)
+        client.close();
+      })
+    }).catch(err => {
+      console.log("error is : ", err)
+      res.send("error")
+
+    })
+})
 
 
 module.exports = routes;

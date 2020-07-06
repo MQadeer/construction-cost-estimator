@@ -7,16 +7,16 @@ const loginServices = {
         axios.post('/login/signIn', info)
             .then(res => {
                 console.log("login success resp ", res)
-                
+
                 if (res.data.name == "admin") {
                     history.push("/dashboard")
                 }
-                else if(res.data.user=="publicUser"){
+                else if (res.data.user == "publicUser") {
                     history.push("/")
                 }
-                else if(res.data.user=="architechturer"){
+                else if (res.data.user == "architechturer") {
                     history.push("/architecturersDshboard")
-                }else if(res.data.user=="builder"){
+                } else if (res.data.user == "builder") {
                     history.push("/buildersDshboard")
                 }
                 return store.dispatch({
@@ -67,7 +67,7 @@ const loginServices = {
                 console.log(err.message)
             })
     },
-    contactRequest:(info)=>{
+    contactRequest: (info) => {
         console.log("in contatct request ", info)
         axios.post('/login/contactRequest', info)
             .then(res => {
@@ -75,6 +75,20 @@ const loginServices = {
                 if (res.data == "success") {
                     alert("Message sent")
                 }
+            })
+            .catch(err => {
+                alert("Sending failed")
+
+                console.log(err.message)
+            })
+    },
+    getContactRequest: () => {
+        axios.get('/login/getContactRequest')
+            .then(res => {
+                store.dispatch({
+                    type: "contactRequestRecieved",
+                    payload: res.data
+                })
             })
             .catch(err => {
                 alert("Sending failed")

@@ -1,7 +1,10 @@
 import loginServices from "../services/login";
 import history from "../../history";
 
-const loginReducer = (state = { login: {}, signupSuccess: false, logedIn: false, user: {},openSignup:false  }, action) => {
+const loginReducer = (state = {
+    login: {}, signupSuccess: false, logedIn: false, user: {},
+    openSignup: false, contactRequests: []
+}, action) => {
     switch (action.type) {
         case "login":
             loginServices.login(action.payload);
@@ -29,6 +32,12 @@ const loginReducer = (state = { login: {}, signupSuccess: false, logedIn: false,
         case "ContactMessage":
             loginServices.contactRequest(action.payload)
             return state
+        case "getContactRequest":
+            loginServices.getContactRequest(action.payload)
+            return state
+        case "contactRequestRecieved":
+            console.log("contact requests  :", action.payload)
+            return {contactRequests:action.payload}
         default:
             return state
     }

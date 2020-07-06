@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Footer from "../footer/index";
 import NavBar from "../navbar/index";
-import { Container, Table, Button, Tabs, Tab } from 'react-bootstrap';
+import { Container, Table, Button, Tabs, Tab, Nav, Row, Col } from 'react-bootstrap';
 import store from "../../redux/store";
 import { connect } from "react-redux";
 import Architects from "./architects";
@@ -41,45 +41,32 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                <NavBar />
-                <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example" >
-                    <Tab eventKey="home" title="Materials">
-                        <Container style={{marginTop:"2%"}}>
-                            <h2 style={{textAlign:"center"}}>Materials List</h2>
-                            <Table responsive style={{marginTop:"2%"}}>
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Unit</th>
-                                        <th>PKR from</th>
-                                        <th>PKR to</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.materials.map((item) => {
-                                        return <tr>
-                                            <td>{item.name}</td>
-                                            <td>{item.unit}</td>
-                                            <td><input defaultValue={item.priceFrom} onChange={this.onchange.bind(this, "priceFrom")}></input></td>
-                                            <td><input defaultValue={item.priceTo} onChange={this.onchange.bind(this, "priceTo")}></input></td>
-                                            <td><Button variant="success" id={item._id} onClick={this.update.bind(this)}>Update</Button></td>
-                                        </tr>
-                                    })}
 
-                                </tbody>
-                            </Table>
-                        </Container>
-                    </Tab>
-                    <Tab eventKey="profile" title="Architects">
-                        <Architects/>
-                    </Tab>
-                    <Tab eventKey="contact" title="Builders" >
-                        <Builders/>
+                <Container style={{ marginTop: "2%" }}>
+                    <h2 style={{ textAlign: "center" }}>Materials List</h2>
+                    <Table responsive style={{ marginTop: "2%" }}>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Unit</th>
+                                <th>PKR from</th>
+                                <th>PKR to</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.materials.map((item) => {
+                                return <tr>
+                                    <td>{item.name}</td>
+                                    <td>{item.unit}</td>
+                                    <td><input defaultValue={item.priceFrom} onChange={this.onchange.bind(this, "priceFrom")}></input></td>
+                                    <td><input defaultValue={item.priceTo} onChange={this.onchange.bind(this, "priceTo")}></input></td>
+                                    <td><Button variant="success" id={item._id} onClick={this.update.bind(this)}>Update</Button></td>
+                                </tr>
+                            })}
 
-                    </Tab>
-                </Tabs>
-
-                {/* <Footer /> */}
+                        </tbody>
+                    </Table>
+                </Container>
             </div>
         )
     }
@@ -95,5 +82,5 @@ const alMaterials = (store) => {
     }
 }
 
-let nDashboard = connect(alMaterials)(Dashboard);
-export default nDashboard;
+let Materials = connect(alMaterials)(Dashboard);
+export default Materials;
