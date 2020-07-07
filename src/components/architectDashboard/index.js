@@ -43,7 +43,7 @@ class Dashboard extends Component {
                             style={{ height: 70, width: 140 }} />
                     </Navbar.Brand>
                     <Nav className="ml-auto" style={{ backgroundColor: "#0594a9", marginRight: "2%", borderRadius: 5 }} >
-                        {/* <Nav.Link as="div" ><Link to="/architecturersDshboard/chats">Chats</Link></Nav.Link> */}
+                        {/* <Nav.Link as="div" ><Link to="/offers">Chats</Link></Nav.Link> */}
 
                         <Button size="lg" variant="outline-danger" style={{ color: "white", border: "none" }}
                             onClick={this.logOut}>Logout</Button>
