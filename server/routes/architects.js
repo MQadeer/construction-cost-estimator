@@ -35,10 +35,20 @@ routes.post('/addOffer', function (req, res) {
   MongoClient.connect(uri, { useNewUrlParser: true })
     .then(client => {
       const collection = client.db("cce").collection("offers");
-      collection.insertOne({architecturerId:new ObjectID(req.body.architecturerId),from:{name:req.body.name,email:req.body.email},
+      collection.insertOne({architecturerId:req.body.architectsId,from:{name:req.body.name,email:req.body.email},
       description:req.body.description,amount:req.body.amount},function(err,resp){
-        console.log("archtechturers : ",resp);
         res.send("success")
+        client.close();
+      })
+    })
+})
+routes.post('/getOffers', function (req, res) {
+  MongoClient.connect(uri, { useNewUrlParser: true })
+    .then(client => {
+      const collection = client.db("cce").collection("offers");
+      collection.find({architecturerId:req.body.id}).toArray((err, items) => {
+        console.log("archtechturers : ",items);
+        res.json(items)
         client.close();
       })
     })

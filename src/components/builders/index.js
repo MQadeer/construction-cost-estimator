@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Card, Button, Modal, Form,Alert } from "react-bootstrap"
+import { Container, Card, Button, Modal, Form, Alert } from "react-bootstrap"
 import store from "../../redux/store"
 import { connect } from "react-redux"
 import StripeCheckout from "react-stripe-checkout"
@@ -15,6 +15,8 @@ class Nbuilders extends Component {
   state = {
     show: false,
     showDescription: false,
+    offer: "",
+    amount: 0,
   }
 
   componentWillMount() {
@@ -25,20 +27,28 @@ class Nbuilders extends Component {
   handleClose = () => {
     this.setState({ show: false })
   };
-  handleShow = () => {
-    this.setState({ show: true })
+  handleShow = (e) => {
+    if (this.props.logedIn == false) {
+      alert("login first")
+    }
+    else {
+      this.setState({
+        show: true,
+        buildersId: e.target.value
+      })
+    }
   };
 
   showDescription = (e) => {
-    const builders=this.props.buildersList;
-    const builder=builders.find(i => i._id===e.target.value)
+    const builders = this.props.buildersList;
+    const builder = builders.find(i => i._id === e.target.value)
     this.setState({
       info: builder.description,
       name: builder.name,
       showDescription: true
     })
   }
-  
+
 
   closeDescription = () => {
     this.setState({ showDescription: false })
@@ -50,8 +60,18 @@ class Nbuilders extends Component {
     this.setState(obj);
     console.log(this.state);
   }
-  getoffer = (e) => {
-
+  submitOffer = () => {
+    if (this.state.offer === "" || this.state.amount < 500) {
+      return alert("please fill the fields and amount should be more the 500 Pkr")
+    }
+    store.dispatch({
+      type: "saveoffer",
+      payload: {
+        name: this.props.user.name, email: this.props.user.email, description: this.state.offer,
+        amount: this.state.amount, architectsId: this.state.architectsId
+      }
+    })
+    this.handleClose();
   }
   startChat = (e) => {
     if (this.props.logedIn == false) {
@@ -104,7 +124,7 @@ class Nbuilders extends Component {
                   token={this.handleToken} amount={(this.state.amount / 167) * 100}
                   style={{ marginTop: "2%" }}
                 />
-                <Button variant="primary" onClick={this.handleShow} style={{ marginLeft: "2%" }}>Make an offer</Button>
+                <Button variant="primary" value={item._id} onClick={this.handleShow.bind(this)} style={{ marginLeft: "2%" }}>Make an offer</Button>
                 <Button variant="success" value={item._id} onClick={this.startChat.bind(this)} style={{ marginLeft: "2%" }}>Start Chat</Button>
 
               </Card.Body>
@@ -126,7 +146,7 @@ class Nbuilders extends Component {
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
           </Button>
-            <Button variant="primary" onClick={this.handleClose}>
+            <Button variant="primary" onClick={this.submitOffer}>
               Submit
           </Button>
           </Modal.Footer>

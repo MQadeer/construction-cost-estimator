@@ -59,7 +59,7 @@ io.on('connect', (socket) => {
         MongoClient.connect(uri, { useNewUrlParser: true })
             .then(client => {
                 const collection = client.db("cce").collection("chatRooms");
-                collection.updateOne({ room: user.room }, { $set: { room: user.room,publicUser:{name:logeduser.name} } },
+                collection.updateOne({ room: user.room },{ $set: { room: user.room,publicUser:{name:logeduser.name} } },
                     { upsert: true }, function (resp) {
                         console.log(resp);
                     })

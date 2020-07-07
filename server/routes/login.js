@@ -9,7 +9,6 @@ const passport = require("../Routers/passport_auth");
 routes.post('/signIn', passport.authenticate('local'), function (req, res) {
   console.log(req.user);
   res.json(req.user);
-
 })
 routes.get('/signOut', function (req, res) {
   req.logOut();

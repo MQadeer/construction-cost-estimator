@@ -7,7 +7,7 @@ const uri = require("../db/db");
 const ObjectID = require('mongodb').ObjectID;
 
 
-passport.use(new LocalStrategy({ usernameField: "email" }, (email, password,userType, done) => {
+passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
   /** Check User Exist With This Email */
   // User.findOne({ email })
   //   .then((user) => {
@@ -33,7 +33,7 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password,user
     .then(client => {
       // const data = req.body.info;
       const collection = client.db("cce").collection("users");
-      collection.findOne({ email: email, password: password,user:userType }, function (err, user) {
+      collection.findOne({ email: email, password: password }, function (err, user) {
         // console.log("error ", err || "items ", resp);
         client.close();
         return done(null, user)

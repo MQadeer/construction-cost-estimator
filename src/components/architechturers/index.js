@@ -15,8 +15,8 @@ class Architechturers extends Component {
   state = {
     show: false,
     showDescription: false,
-    offer:"",
-    amount:0,
+    offer: "",
+    amount: 0,
   }
 
   componentWillMount() {
@@ -28,10 +28,15 @@ class Architechturers extends Component {
     this.setState({ show: false })
   };
   handleShow = (e) => {
-    this.setState({ 
-      show: true,
-      architectsId:e.target.value
-    })
+    if (this.props.logedIn == false) {
+      alert("login first")
+    }
+    else {
+      this.setState({
+        show: true,
+        architectsId: e.target.value
+      })
+    }
   };
 
   showDescription = (e) => {
@@ -55,16 +60,15 @@ class Architechturers extends Component {
     console.log(this.state);
   }
   submitOffer = () => {
-    if (this.props.logedIn == false) {
-      alert("login first")
-    }
-    else if(this.state.offer =="" || this.state.amount<500){
-     return alert("please fill the fields and amount should be more the 500 Pkr")
+    if (this.state.offer == "" || this.state.amount < 500) {
+      return alert("please fill the fields and amount should be more the 500 Pkr")
     }
     store.dispatch({
-      type:"saveoffer",
-      payload:{name:this.props.user.name,email:this.props.user.email ,description:this.state.offer,
-        amount:this.state.amount,architectsId:this.state.architectsId}
+      type: "saveoffer",
+      payload: {
+        name: this.props.user.name, email: this.props.user.email, description: this.state.offer,
+        amount: this.state.amount, architectsId: this.state.architectsId
+      }
     })
     this.handleClose();
   }

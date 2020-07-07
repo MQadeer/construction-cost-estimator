@@ -32,6 +32,17 @@ import store from "../store";
         .then(response=>{
             alert("success")
         })
+    },
+    getOffers:(info)=>{
+        console.log("offers services")
+        Axios.post('/architects/getOffers',info)
+        .then(response=>{
+            console.log(response.data)
+            store.dispatch({
+                type: "offersRecieved",
+                payload: response.data
+            })
+        })
     }
 }
 

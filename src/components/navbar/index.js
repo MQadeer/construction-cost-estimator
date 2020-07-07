@@ -112,6 +112,7 @@ function NavigationBar(props) {
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/builders" >builders</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/" >Cost Estimator</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/about">About Us</Link></Nav.Link>
+                    <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/contactus">Contact us</Link></Nav.Link>
                     {/* {
                         props.userinfo!=undefined && props.userinfo.user=="admin"? 
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link> : null

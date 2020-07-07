@@ -7,7 +7,8 @@ const loginServices = {
         axios.post('/login/signIn', info)
             .then(res => {
                 console.log("login success resp ", res)
-
+                localStorage.setItem("logedUser", JSON.stringify(res.data._id))
+                localStorage.setItem("logedIn", JSON.stringify(true))
                 if (res.data.name == "admin") {
                     history.push("/dashboard")
                 }
@@ -28,7 +29,7 @@ const loginServices = {
             .catch(err => {
                 history.push("/")
 
-                alert("signIn failed")
+                alert("signIn failed check email or password")
 
                 console.log("login service error ", err)
             })
@@ -39,6 +40,7 @@ const loginServices = {
         axios.get('/login/signOut')
             .then(res => {
                 console.log("logout succes resp ", res)
+                localStorage.removeItem("logedUser")
                 return store.dispatch({
                     type: "logoutSuccess",
                     payload: res.data

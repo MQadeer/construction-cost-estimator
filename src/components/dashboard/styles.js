@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     signinButton:{
         backgroundColor:"#0594a9",
+        float:"right",
         '&:hover': {
             color:"#0594a9",
             backgroundColor: "white",
