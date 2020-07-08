@@ -1,6 +1,6 @@
 import Axios from "axios";
 import store from "../store";
-
+import swal from "sweetalert";
  const architectServices={
     getArchitects:()=>{
         Axios.get('/architects/getArchitects')
@@ -11,12 +11,12 @@ import store from "../store";
             })
         })
     },
-    getChats:()=>{
-        Axios.get('/chats/getChats')
+    getChats:(info)=>{
+        console.log("chat services ",info)
+        Axios.post('/chats/getChats',info)
         .then(response=>{
-            // console.log("all chats",response.data)
             store.dispatch({
-                type: "chatsRecieved",
+                type: "AchatsRecieved",
                 payload: response.data
             })
         })
@@ -24,13 +24,20 @@ import store from "../store";
     removeArchitect:(info)=>{
         Axios.post('/architects/removeArchitect',info)
         .then(response=>{
-            alert("Architect removed ")
+            swal({
+                title: "Architect removed !",
+                icon: "success",
+              });
         })
     },
     saveoffer:(info)=>{
         Axios.post('/architects/addOffer',info)
         .then(response=>{
-            alert("success")
+            swal({
+                title: "Offer sent!",
+                text: "!",
+                icon: "success",
+              });
         })
     },
     getOffers:(info)=>{

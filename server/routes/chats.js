@@ -8,11 +8,22 @@ const ObjectID = require('mongodb').ObjectID;
 
 
 
-routes.get('/getChats', function (req, res) {
+routes.post('/getChats', function (req, res) {
   MongoClient.connect(uri, { useNewUrlParser: true })
     .then(client => {
       const collection = client.db("cce").collection("chatRooms");
-      collection.find().toArray((err, items) => {
+      collection.find({employeeId:req.body.user.id}).toArray((err, items) => {
+        console.log(items);
+        res.json(items)
+        client.close();
+      })
+    })
+})
+routes.post('/getPublicChats', function (req, res) {
+  MongoClient.connect(uri, { useNewUrlParser: true })
+    .then(client => {
+      const collection = client.db("cce").collection("chatRooms");
+      collection.find({publicUser:{name:req.body.user.name,id:req.body.user.id}}).toArray((err, items) => {
         console.log(items);
         res.json(items)
         client.close();

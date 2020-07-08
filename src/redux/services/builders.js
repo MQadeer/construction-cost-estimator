@@ -1,5 +1,6 @@
 import Axios from "axios";
 import store from "../store";
+import swal from "sweetalert";
 
 const builderServices = {
     getBuilders: () => {
@@ -11,8 +12,9 @@ const builderServices = {
                 })
             })
     },
-    getChats: () => {
-        Axios.get('/chats/getChats')
+    getChats: (info) => {
+        console.log("builders chat services ",info)
+        Axios.post('/chats/getChats',info)
             .then(response => {
                 // console.log("all chats",response.data)
                 store.dispatch({
@@ -25,7 +27,10 @@ const builderServices = {
         Axios.post('/builders/removeBuilder', info)
             .then(response => {
                 if (response == "success") {
-                    alert("Architect removed ")
+                    swal({
+                        title: "Builder removed!",
+                        icon: "success",
+                      });
                 }
             })
     }

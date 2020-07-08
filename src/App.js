@@ -18,6 +18,7 @@ import AOffers from "./components/architectDashboard/offers";
 import Builders from "./components/builders/index";
 import BuilderDashboard from "./components/builderDashboard/index";
 import ContactUs from "./components/contactus/index";
+import PublicDashboard from "./components/publicDashboard/index";
 
 
 function App() {
@@ -33,12 +34,13 @@ function App() {
           <Route exact path='/materialsPage' component={MaterialPricing}></Route>
           <Route exact path='/dashboard' component={Dashboard}></Route>
           <Route exact path='/architecturers' component={NArchitechturers}></Route>   
-          <Route exact path='/architecturersDshboard/' component={ArchitectDashboard}></Route>
+          <Route exact path='/DashboardArchitecturers/' component={ArchitectDashboard}></Route>
           <Route exact path='/architecturersDshboard/offers' component={AOffers}></Route>
           <Route exact path='/architecturersDshboard/chats' component={AOffers}></Route>
           <Route exact path='/builders' component={Builders}></Route>
-          <Route exact path='/buildersDshboard' component={BuilderDashboard}></Route>
+          <Route exact path='/DashboardBuilders' component={BuilderDashboard}></Route>
           <Route exact path='/chatRoom' component={Chatbox}></Route>
+          <Route exact path='/publicDashboard' component={PublicDashboard}></Route>
         </header>
       </Router>
     </Provider>

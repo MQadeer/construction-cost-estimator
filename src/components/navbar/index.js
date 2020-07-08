@@ -7,6 +7,7 @@ import store from "../../redux/store";
 import { connect } from "react-redux";
 import input from "react-validation/build/input";
 import validator from 'validator';
+import swal from "sweetalert";
 
 
 function NavigationBar(props) {
@@ -25,6 +26,7 @@ function NavigationBar(props) {
     //handle props
     // useEffect(()=>{},[props.logedIn])
 
+    const userInfo=JSON.parse(localStorage.getItem("logedUser"));
     const handleSignIn = () => {
         if(email=="admin"){
             store.dispatch({
@@ -39,10 +41,17 @@ function NavigationBar(props) {
         }
         else if(!validator.isEmail(email)) {
             document.getElementById("email").style.borderColor="red";
-            return alert("enter credentials correctly ")
+            return swal({
+                title: "invalid email",
+                icon: "error",
+              });
         }
         else if(validator.isEmpty(password) || validator.isEmpty(userType)){
-            return alert("Complete all the fields ")
+            return swal({
+                title: "error!",
+                text: "Missing fields",
+                icon: "error",
+              });
         }
         else{store.dispatch({
             type: "login",
@@ -57,10 +66,17 @@ function NavigationBar(props) {
     const handleSignUp = () => {
         if(!validator.isEmail(email)){
             document.getElementById("semail").style.borderColor="red";
-            return alert("enter correct values ")
+            return swal({
+                title: "Invalid email!",
+                icon: "error",
+              });
         }
         else if(validator.isEmpty(password) || validator.isEmpty(userType) || validator.isEmpty(mobileno) || validator.isEmpty(fullname)){
-            return alert("Complete  the remaining fields ")
+            return swal({
+                title: "error!",
+                text: "Missingg fields!",
+                icon: "error",
+              });
         }
         store.dispatch({
             type: "signup",
@@ -86,14 +102,6 @@ function NavigationBar(props) {
         })
     }
 
-    const openDashboard = () => {
-        console.log("checking user type ")
-        const type = props.userinfo.type
-        if (type == "architechturer") {
-            return <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link>
-
-        }
-    }
     const classes = useStyles();
 
     return (
@@ -113,12 +121,11 @@ function NavigationBar(props) {
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/" >Cost Estimator</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/about">About Us</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/contactus">Contact us</Link></Nav.Link>
-                    {/* {
-                        props.userinfo!=undefined && props.userinfo.user=="admin"? 
-                    <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/dashboard" >Dasboard</Link></Nav.Link> : null
+                    {
+                       props.logedIn==true && userInfo.user=="publicUser"? 
+                    <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/publicDashboard" >Dasboard</Link></Nav.Link> : null
 
-                    } */}
-                    {/* {openDashboard()} */}
+                    }
                 </Nav>
                 {props.logedIn ?
                     <Button size="lg" className={classes.signinButton} onClick={logOut}>Logout</Button> :

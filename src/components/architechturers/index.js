@@ -7,7 +7,9 @@ import NavigationBar from "../navbar/index";
 import Footer from "../footer/index";
 import history from "../../history";
 import config from "../../config";
-import Axios from "axios"
+import Axios from "axios";
+import swal from "sweetalert";
+
 
 
 
@@ -29,7 +31,8 @@ class Architechturers extends Component {
   };
   handleShow = (e) => {
     if (this.props.logedIn == false) {
-      alert("login first")
+      swal("Oops!", "login first!", "error");
+
     }
     else {
       this.setState({
@@ -61,7 +64,8 @@ class Architechturers extends Component {
   }
   submitOffer = () => {
     if (this.state.offer == "" || this.state.amount < 500) {
-      return alert("please fill the fields and amount should be more the 500 Pkr")
+      return swal("Oops!", "please fill the fields and amount should be more the 500 Pkr", "info");
+
     }
     store.dispatch({
       type: "saveoffer",
@@ -74,16 +78,16 @@ class Architechturers extends Component {
   }
   startChat = (e) => {
     if (this.props.logedIn == false) {
-      alert("login to start chat")
+      swal("Oops!", "login to start chat!", "error");
     }
     else {
-      let architect = this.props.architectsList.find(o => o._id == e.target.value)
-      console.log(architect)
-      localStorage.setItem("architect", JSON.stringify(architect))
-      const room = architect._id + this.props.user._id
+      let employee = this.props.architectsList.find(o => o._id == e.target.value)
+      console.log(employee)
+      localStorage.setItem("employee", JSON.stringify(employee))
+      const room = employee._id + this.props.user._id
       const logeduser = this.props.user
       // config.socket.emit('join', { logeduser, architect, room })
-      config.socket.emit('join', { logeduser, room })
+      config.socket.emit('publicJoin', { logeduser,employee, room })
       history.push("/chatRoom")
     }
 
@@ -94,7 +98,12 @@ class Architechturers extends Component {
     Axios.post("/checkout",
       { token, amount }
     ).then(response => {
-      alert("Success! ");
+      swal( "", "success");
+      swal({
+        title: "Payment successful!",
+        icon: "success",
+      });
+
 
       // console.log("payment Response:", response.data);
       // if (response == "success") {

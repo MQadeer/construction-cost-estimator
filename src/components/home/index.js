@@ -9,6 +9,7 @@ import NArchitechturers from "../architechturers/index";
 import Dashboard from "../dashboard/materials";
 import Chatbox from "../chatbox/index"
 import store from "../../redux/store";
+import history from "../../history";
 import { connect } from "react-redux"
 
 class Home extends Component {

@@ -21,18 +21,27 @@ routes.post('/signUp', function (req, res) {
     .then(client => {
       const data = req.body;
       const collection = client.db("cce").collection("users");
-      collection.insertOne({name:data.name,password:data.password,email:data.email,
-        user:data.userType,number:data.number,description:data.description}, function (err, resp) {
-        // res.json(resp)
-        if(err){
-          res.send("error")
+      collection.find({ email: data.email }).toArray((err, items) => {
+        console.log("same emails : ", items);
+        if (items.length == 0) {
+          collection.insertOne({
+            name: data.name, password: data.password, email: data.email,
+            user: data.userType, number: data.number, description: data.description
+          }, function (err, resp) {
+            // res.json(resp)
+            if (err) {
+              res.send("error")
+            }
+            else {
+              res.send("success")
+            }
+            client.close();
+          })
         }
-        else{
-          res.send("success")
+        else {
+          res.send("duplicate")
+          client.close();
         }
-        client.close();
-
-
       })
     }).catch(err => {
       console.log("error is : ", err)
@@ -44,12 +53,12 @@ routes.post('/contactRequest', function (req, res) {
     .then(client => {
       const data = req.body;
       const collection = client.db("cce").collection("contactRequests");
-      collection.insertOne({name:data.name,email:data.email,subject:data.subject,message:data.message},function (err, resp) {
+      collection.insertOne({ name: data.name, email: data.email, subject: data.subject, message: data.message }, function (err, resp) {
         // res.json(resp)
-        if(err){
+        if (err) {
           res.send("error")
         }
-        else{
+        else {
           res.send("success")
         }
         client.close();
@@ -65,7 +74,7 @@ routes.get('/getContactRequest', function (req, res) {
     .then(client => {
       const collection = client.db("cce").collection("contactRequests");
       collection.find().toArray((err, items) => {
-        console.log("contact requests : ",items);
+        console.log("contact requests : ", items);
         res.json(items)
         client.close();
       })

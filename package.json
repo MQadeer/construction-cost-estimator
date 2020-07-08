@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
-    "css-loader": "^3.6.0",
     "react": "^16.13.1",
     "react-alice-carousel": "^1.19.1",
     "react-bootstrap": "^1.0.1",
@@ -23,7 +22,7 @@
     "react-validation": "^3.0.7",
     "redux": "^4.0.5",
     "socket.io-client": "^2.3.0",
-    "style-loader": "^1.2.1",
+    "sweetalert": "^2.1.2",
     "validator": "^13.1.1"
   },
   "scripts": {

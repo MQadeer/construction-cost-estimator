@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Card, Button, Modal, Form, Alert } from "react-bootstrap"
+import { Container, Card, Button, Modal, Form } from "react-bootstrap"
 import store from "../../redux/store"
 import { connect } from "react-redux"
 import StripeCheckout from "react-stripe-checkout"
@@ -8,6 +8,7 @@ import Footer from "../footer/index";
 import history from "../../history";
 import Axios from "axios";
 import config from "../../config";
+import swal from "sweetalert";
 
 
 
@@ -29,7 +30,10 @@ class Nbuilders extends Component {
   };
   handleShow = (e) => {
     if (this.props.logedIn == false) {
-      alert("login first")
+      swal({
+        title: "login first!",
+        icon: "error",
+      });
     }
     else {
       this.setState({
@@ -62,7 +66,11 @@ class Nbuilders extends Component {
   }
   submitOffer = () => {
     if (this.state.offer === "" || this.state.amount < 500) {
-      return alert("please fill the fields and amount should be more the 500 Pkr")
+      return swal({
+        text: "please fill the fields and amount should be more the 500 Pkr",
+        icon: "info",
+      });
+ 
     }
     store.dispatch({
       type: "saveoffer",
@@ -75,16 +83,19 @@ class Nbuilders extends Component {
   }
   startChat = (e) => {
     if (this.props.logedIn == false) {
-      alert("login to start chat")
+      swal({
+        title: "login to start chat!",
+        icon: "error",
+      });
     }
     else {
-      let builder = this.props.buildersList.find(o => o._id == e.target.value)
-      console.log(builder)
-      localStorage.setItem("builder", JSON.stringify(builder))
-      const room = builder._id + this.props.user._id
+      let employee = this.props.buildersList.find(o => o._id == e.target.value)
+      console.log(employee)
+      localStorage.setItem("employee", JSON.stringify(employee))
+      const room = employee._id + this.props.user._id
       const logeduser = this.props.user
       // config.socket.emit('join', { logeduser, builder, room })
-      config.socket.emit('join', { logeduser, room })
+      config.socket.emit('publicJoin', { logeduser,employee, room })
       history.push("/chatRoom")
     }
 
@@ -96,7 +107,10 @@ class Nbuilders extends Component {
       { token, amount }
     ).then(response => {
       console.log("payment Response:", response.data);
-      alert("Success! ");
+      swal({
+        title: "Payment successful!",
+        icon: "success",
+      });
       // if (response === "success") {
       //   alert("Success! ");
       // } else {

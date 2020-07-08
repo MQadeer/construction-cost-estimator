@@ -6,10 +6,11 @@ const buildersReducer = (state = { builders: [], chats: [] }, action) => {
             builderServices.getBuilders();
             return state
         case "buildersRecieved":
-            console.log("all architects", action.payload)
+            console.log("all builders", action.payload)
             return { builders: action.payload }
-        case "getchats":
-            builderServices.getChats()
+        case "getchatsB":
+            console.log("chat reducer ",action.payload)
+            builderServices.getChats(action.payload)
             return state
         case "chatsRecieved":
             console.log("chats in reducer", action.payload)

@@ -4,7 +4,7 @@ import NavBar from "../navbar/index";
 import { Container, Table, Button, Card, Navbar, Image, Nav, Tab, Row, Col } from 'react-bootstrap';
 import store from "../../redux/store";
 import { connect } from "react-redux";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import config from "../../config";
 import history from "../../history";
 import Chats from "./chats";
@@ -13,8 +13,10 @@ import Offers from "./offers";
 class Dashboard extends Component {
     state = {}
     componentWillMount() {
+        // console.log(JSON.parse(localStorage.getItem("logedUser")))
         store.dispatch({
-            type: "getchats"
+            type: "getchatsA",
+            payload: { user: JSON.parse(localStorage.getItem("logedUser")) }
         })
     }
     logOut = () => {
@@ -30,7 +32,7 @@ class Dashboard extends Component {
         // const logeduser=e.target.value.publicUser
         const logeduser = this.props.user
         // config.socket.emit('join',{logeduser,architect,room})
-        config.socket.emit('join', { logeduser, room })
+        config.socket.emit('employeeJoin', { logeduser, room })
         history.push("/chatRoom")
     }
 
@@ -56,16 +58,24 @@ class Dashboard extends Component {
                 {/* <Chats/> */}
                 <h2 style={{ textAlign: "center" }}>Chats</h2>
                 <Container>
-                    {this.props.allchats.map((item, index) => {
-                        return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "5%", marginTop: "2%" }}>
+                    {this.props.allchats != undefined ? this.props.allchats.map((item, index) => {
+                        return <Card key={index} style={{ width: '20rem', float: "left", marginRight: "5%", marginTop: "2%" }}>
                             <Card.Body>
                                 <Card.Title style={{ textAlign: "center" }}>{item.publicUser.name}</Card.Title>
-                                <Card.Text style={{ height: 200, overflow: "auto" }}>{}</Card.Text>
+                                <Card.Text style={{ height: 200, overflow: "auto" }}>
+                                    <ul style={{ listStyle: "none", }}>
+                                        {item.chat.map((item, index) => {
+                                            return <li key={index}><p style={{ color: "lightgreen", display: "inline" }}>{item.user}: </p>
+                                                <p style={{ display: "inline" }}>{item.text}</p></li>
+
+                                        })}
+                                    </ul>
+                                </Card.Text>
                                 <Button variant="primary" value={item.room}
                                     onClick={this.startChat.bind(this)}>continue Chat</Button>
                             </Card.Body>
                         </Card>
-                    })}
+                    }) : null}
                 </Container>
                 {/* <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
                     <Row>

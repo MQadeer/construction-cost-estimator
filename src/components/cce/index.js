@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Modal, Table, Alert } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Modal, Table } from "react-bootstrap";
 import image1 from "../../images/5.jpg";
 import { connect } from "react-redux";
 import store from "../../redux/store";
+import swal from "sweetalert";
 
 class NCCE extends Component {
     state = {
@@ -35,8 +36,10 @@ class NCCE extends Component {
     }
     onSubmit = () => {
         if (this.state.plotSize == 0 || this.state.sqft == 0 || this.state.floors == 0) {
-            return (
-                alert("fill the form first")
+            return (swal({
+                    text: "fill the form first!",
+                    icon: "info",
+                  })
             )
         }
         const roomsqft = this.state.rooms * 130
@@ -50,7 +53,11 @@ class NCCE extends Component {
         console.log(totalGivensqft, totalRoomsqft)
 
         if (totalGivensqft < totalRoomsqft) {
-            return alert("Given no of rooms cannot be constructed in the given plotsize either increase the plotsize or add another floor")
+            return swal({
+                title: "Warning!",
+                text: "Given no of rooms cannot be constructed in the given plotsize either increase the plotsize or add another floor!",
+                icon: "info",
+              });
         }
 
         const prices = this.props.allMaterials
@@ -66,11 +73,7 @@ class NCCE extends Component {
             show: true
 
         })
-        // alert(`Estimated cost = ${totalCost} \n note: This cost is an estimate of grey structure of a double story house and prices of high quality material were used so, if you want a more detailed or complete estimate please login and contact our architects. Thank you`)
-        // store.dispatch({
-        //     type:"calculateCost",
-        //     payload:{marla,sft}
-        // })
+        
 
     }
 

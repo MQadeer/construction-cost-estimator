@@ -14,9 +14,10 @@ class Aoffers extends Component {
 
     componentWillMount() {
         console.log("offers component")
+        const user=JSON.parse(localStorage.getItem("logedUser"))
         store.dispatch({
             type: "getOffers",
-            payload: { id: JSON.parse(localStorage.getItem("logedUser")) }
+            payload: { id: user.id}
         })
     }
 

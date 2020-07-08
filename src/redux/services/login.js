@@ -1,24 +1,29 @@
 import axios from "axios";
 import store from "../store";
 import history from "../../history";
-
+import swal from "sweetalert";
 const loginServices = {
     login: (info) => {
+        
         axios.post('/login/signIn', info)
             .then(res => {
                 console.log("login success resp ", res)
-                localStorage.setItem("logedUser", JSON.stringify(res.data._id))
+                localStorage.setItem("logedUser", JSON.stringify({ id: res.data._id, name: res.data.name, user: res.data.user }))
                 localStorage.setItem("logedIn", JSON.stringify(true))
-                if (res.data.name == "admin") {
-                    history.push("/dashboard")
-                }
-                else if (res.data.user == "publicUser") {
+                if (res.data.user == "publicUser") {
+                    store.dispatch({
+                        type: "getchatsU",
+                        payload: { user: JSON.parse(localStorage.getItem("logedUser")) }
+                    })
                     history.push("/")
                 }
+                else if (res.data.name == "admin") {
+                    history.push("/dashboard")
+                }
                 else if (res.data.user == "architechturer") {
-                    history.push("/architecturersDshboard")
+                    history.push("/DashboardArchitecturers")
                 } else if (res.data.user == "builder") {
-                    history.push("/buildersDshboard")
+                    history.push("/DashboardBuilders")
                 }
                 return store.dispatch({
                     type: "loginSuccess",
@@ -28,8 +33,11 @@ const loginServices = {
             })
             .catch(err => {
                 history.push("/")
-
-                alert("signIn failed check email or password")
+                swal({
+                    title: "signIn failed !",
+                    text: "check email or password",
+                    icon: "info",
+                });
 
                 console.log("login service error ", err)
             })
@@ -41,6 +49,7 @@ const loginServices = {
             .then(res => {
                 console.log("logout succes resp ", res)
                 localStorage.removeItem("logedUser")
+                localStorage.removeItem("publichats")
                 return store.dispatch({
                     type: "logoutSuccess",
                     payload: res.data
@@ -48,7 +57,10 @@ const loginServices = {
 
             })
             .catch(err => {
-                alert("logout failed")
+                swal({
+                    title: "logout failed!",
+                    icon: "error",
+                });
                 console.log(err.message)
             })
 
@@ -60,11 +72,24 @@ const loginServices = {
                 console.log(res)
                 history.push("/")
                 if (res.data == "success") {
-                    alert("New Account Created")
+                    swal({
+                        title: "New Account Created!",
+                        icon: "success",
+                    });
+                }
+                else if (res.data == "duplicate") {
+                    swal({
+                        title: "SignUp failed!",
+                        text: "this email already exists!",
+                        icon: "error",
+                    });
                 }
             })
             .catch(err => {
-                alert("signUp failed")
+                swal({
+                    title: "SignUp failed!",
+                    icon: "error",
+                });
 
                 console.log(err.message)
             })
@@ -75,12 +100,17 @@ const loginServices = {
             .then(res => {
                 console.log(res)
                 if (res.data == "success") {
-                    alert("Message sent")
+                    swal({
+                        title: "Message sent!",
+                        icon: "success",
+                    });
                 }
             })
             .catch(err => {
-                alert("Sending failed")
-
+                swal({
+                    title: "Sending failed!",
+                    icon: "error",
+                });
                 console.log(err.message)
             })
     },
@@ -93,11 +123,28 @@ const loginServices = {
                 })
             })
             .catch(err => {
-                alert("Sending failed")
+                swal({
+                    title: "failed!",
+                    icon: "error",
+                });
 
                 console.log(err.message)
             })
-    }
+    },
+    getChats: (info) => {
+        axios.post('/chats/getPublicChats', info)
+            .then(response => {
+                console.log("public chat",response.data)
+                localStorage.setItem("publichats",JSON.stringify(response.data))
+                // store.dispatch({
+                //     type: "PublicchatsRecieved",
+                //     payload: response.data
+                // })
+                
+            }).catch(err=>{
+                console.log("publichats error ",err)
+            })
+    },
 }
 
 export default loginServices;

@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import Footer from "../footer/index";
 import NavBar from "../navbar/index";
-import { Container, Table, Card, Button, Navbar, Image, Nav } from 'react-bootstrap';
+import { Container, Table, Button, Card } from 'react-bootstrap';
 import store from "../../redux/store";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import config from "../../config";
 import history from "../../history";
 
-class Dashboard extends Component {
-    state = {}
-
+class Pdashboard extends Component {
+    state = { allmyChat: JSON.parse(localStorage.getItem("publichats")) }
     componentWillMount() {
-
         store.dispatch({
-            type: "getchatsB",
+            type: "getchatsU",
             payload: { user: JSON.parse(localStorage.getItem("logedUser")) }
-        })
-    }
-    logOut = () => {
-        store.dispatch({
-            type: "logout",
         })
     }
     startChat = (e) => {
@@ -30,32 +24,38 @@ class Dashboard extends Component {
         // const logeduser=e.target.value.publicUser
         const logeduser = this.props.user
         // config.socket.emit('join',{logeduser,architect,room})
-        config.socket.emit('employeeJoin', { logeduser, room })
+        config.socket.emit('resumeChat', { logeduser, room })
         history.push("/chatRoom")
     }
 
+    checkChats = () => {
+        if (this.state.allmyChat == null) {
+           this.checkChats();
+        }
+        else{
+            this.setState({
+                allmyChat: JSON.parse(localStorage.getItem("publichats"))
+            })
+        }
+
+    }
+    allmyChat = JSON.parse(localStorage.getItem("publichats"))
+
     render() {
         return (
-            <div>
-                <Navbar collapseOnSelect expand="lg" bg="light">
-                    <Navbar.Brand >
-                        <Image src={require("../../images/logo.png")} rounded
-                            style={{ height: 70, width: 140 }} />
-                    </Navbar.Brand>
-                    <Nav className="ml-auto" style={{ backgroundColor: "#0594a9", marginRight: "2%", borderRadius: 5 }} >
-                        <Button size="lg" variant="outline-danger" style={{ color: "white", border: "none" }}
-                            onClick={this.logOut}>Logout</Button>
-                    </Nav>
-                </Navbar>
+            <div >
+                <NavBar />
                 <div style={{ backgroundColor: "rgb(5, 148, 169)", marginTop: "2%", marginBottom: "2%", paddingTop: "2%", paddingBottom: "2%" }}>
-                    <h1 style={{ color: "white", textAlign: "center" }}>Dashboard</h1>
+                    <h1 style={{ color: "white", textAlign: "center" }}>Public user Dashboard</h1>
                 </div>
-                <h2 style={{ textAlign: "center" }}>Chats</h2>
+                <h2 style={{ textAlign: "center" }}>My Previous Chats</h2>
                 <Container>
-                    {this.props.chats != undefined ? this.props.chats.map((item, index) => {
-                        return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "5%" }}>
+                    {/* {this.props.allchats != undefined ? this.props.allchats.map((item, index) => { */}
+                    {this.state.allmyChat != null ? this.state.allmyChat.map((item, index) => {
+
+                        return <Card key={index} style={{ width: '20rem', float: "left", marginRight: "5%", marginTop: "2%" }}>
                             <Card.Body>
-                                <Card.Title style={{ textAlign: "center" }}>{item.publicUser.name}</Card.Title>
+                                <Card.Title style={{ textAlign: "center" }}>{item.employeeName}</Card.Title>
                                 <Card.Text style={{ height: 200, overflow: "auto" }}>
                                     <ul style={{ listStyle: "none", }}>
                                         {item.chat.map((item, index) => {
@@ -65,27 +65,24 @@ class Dashboard extends Component {
                                         })}
                                     </ul>
                                 </Card.Text>
-                                <Button variant="primary" value={item.room}
-                                    onClick={this.startChat.bind(this)}>continue Chat</Button>
+                                {/* <Button variant="primary" value={item.room}
+                                    onClick={this.startChat.bind(this)}>continue Chat</Button> */}
                             </Card.Body>
                         </Card>
-                    }) : null}
+                    }) : this.checkChats}
                 </Container>
-                {/* <Footer /> */}
             </div>
         )
     }
 }
 
 const chatbox = (store) => {
-    console.log("chats  ", store.architectsReducer.chats)
+    console.log("chats  ", store.loginReducer.allChats)
     return {
         logedIn: store.loginReducer.logedIn, user: store.loginReducer.user,
-        chats: store.buildersReducer.chats
+        allchats: store.loginReducer.allChats
     }
-
-
 }
 
-let BuilderDashboard = connect(chatbox)(Dashboard);
-export default BuilderDashboard;
+let PublicDashboard = connect(chatbox)(Pdashboard);
+export default PublicDashboard;

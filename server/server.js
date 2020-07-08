@@ -14,7 +14,7 @@ const http = require('http');
 const socketio = require('socket.io');
 const MongoClient = require('mongodb').MongoClient;
 const uri = require("./db/db");
-const uuid=require("uuid/v4")
+const uuid = require("uuid/v4")
 const app = http.createServer(server);
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
@@ -32,45 +32,79 @@ server.use(session({
 server.use(cookieParser())
 
 io.on('connect', (socket) => {
-    // socket.on('join', ({ logeduser, architect, room }, callback) => {
+    socket.on('publicJoin', ({ logeduser, employee, room }, callback) => {
 
-    //     const { error, user } = addUser({ id: logeduser._id, name: logeduser.name, room });
+        const { error, user } = addUser({ id: logeduser._id, name: logeduser.name, room });
 
-    //     // if (error) return callback(error);
+        socket.join(room);
 
-    //     socket.join(user.room);
-    //     MongoClient.connect(uri, { useNewUrlParser: true })
-    //         .then(client => {
-    //             const collection = client.db("cce").collection("chatRooms");
-    //             collection.updateOne({ room: user.room }, { $set: { room: user.room, publicUser: logeduser, architect: architect } },
-    //                 { upsert: true }, function (resp) {
-    //                     console.log(resp);
-    //                 })
-    //         })
-    // });
-    socket.on('join', ({ logeduser, room }, callback) => {
+        MongoClient.connect(uri, { useNewUrlParser: true })
+            .then(client => {
+                const collection = client.db("cce").collection("chatRooms");
+                // collection.updateOne({ room: user.room }, { $set: { room: user.room, publicUser: { name: logeduser.name }, employeeId: employee._id } },
+                //     { upsert: true }, function (resp) {
+                //         console.log(resp);
+                //     })
+                collection.find({ room: user.room }).toArray((err, items) => {
+                    console.log("same emails : ", items);
+                    if (items.length == 0) {
+                        collection.insertOne({
+                            room: user.room, chat: [], publicUser: { name: logeduser.name,id:logeduser._id },
+                            employeeId: employee._id,employeeName:employee.name
+                        }, function (err, resp) {
+                            client.close();
+                        })
+                    }
+                })
+            })
+    });
+
+    socket.on('employeeJoin', ({ logeduser, room }, callback) => {
 
         const { error, user } = addUser({ id: logeduser._id, name: logeduser.name, room });
 
         // if (error) return callback(error);
 
         socket.join(room);
-        
-        MongoClient.connect(uri, { useNewUrlParser: true })
-            .then(client => {
-                const collection = client.db("cce").collection("chatRooms");
-                collection.updateOne({ room: user.room },{ $set: { room: user.room,publicUser:{name:logeduser.name} } },
-                    { upsert: true }, function (resp) {
-                        console.log(resp);
-                    })
-            })
-    });
 
+        // MongoClient.connect(uri, { useNewUrlParser: true })
+        //     .then(client => {
+        //         const collection = client.db("cce").collection("chatRooms");
+        //         collection.findOne({ room: user.room },{ $set: { room: user.room,publicUser:{name:logeduser.name} } },
+        //             { upsert: true }, function (resp) {
+        //                 console.log(resp);
+        //             })
+        //     })
+    });
+    socket.on('resumeChat', ({ logeduser, room }, callback) => {
+
+        const { error, user } = addUser({ id: logeduser._id, name: logeduser.name, room });
+
+        // if (error) return callback(error);
+
+        socket.join(room);
+
+        // MongoClient.connect(uri, { useNewUrlParser: true })
+        //     .then(client => {
+        //         const collection = client.db("cce").collection("chatRooms");
+        //         collection.findOne({ room: user.room },{ $set: { room: user.room,publicUser:{name:logeduser.name} } },
+        //             { upsert: true }, function (resp) {
+        //                 console.log(resp);
+        //             })
+        //     })
+    });
     socket.on('sendMessage', (message, logeduser, callback) => {
         const user = getUser(logeduser._id);
 
         io.to(user.room).emit('message', { user: user.name, text: message });
-        // callback();
+        MongoClient.connect(uri, { useNewUrlParser: true })
+            .then(client => {
+                const collection = client.db("cce").collection("chatRooms");
+                collection.updateOne({ room: user.room }, { $push: { chat: { user: user.name, text: message } } },
+                    { upsert: true }, function (resp) {
+                        console.log(resp);
+                    })
+            })
     });
 
     socket.on('disconnect', () => {

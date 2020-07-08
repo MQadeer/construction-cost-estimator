@@ -3,6 +3,7 @@ import NavigationBar from "../navbar/index";
 import Footer from "../footer/index";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import store from "../../redux/store";
+import swal from "sweetalert";
 
 export default class ContactUs extends Component {
   state = {
@@ -19,7 +20,11 @@ export default class ContactUs extends Component {
   onSubmit = () => {
     const values=this.state
     if(!values.name || !values.email || !values.message || !values.subject ){
-      alert("please fill the complete form then submit")
+      swal({
+        title: "warning!",
+        text: "please fill the complete form then submit",
+        icon: "success",
+      });
     }
     else{
       store.dispatch({

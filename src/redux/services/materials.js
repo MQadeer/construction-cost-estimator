@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../store";
-
+import swal from "sweetalert";
  const materialsServices={
     getMaterials:()=>{
         console.log("in reducer function")
@@ -17,7 +17,10 @@ import store from "../store";
         axios.post("/materials/updateMaterial",info)
         .then(resp=>{
             console.log("response is : ",resp);
-            alert('update success')
+            swal({
+                title: "update success!",
+                icon: "success",
+              });
         })
         
     }

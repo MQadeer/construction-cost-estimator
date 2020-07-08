@@ -13,7 +13,7 @@ class NChat extends Component {
     state = {
         message: "",
         messages: [],
-        // architect: JSON.parse(localStorage.getItem("architect"))
+        // architect: JSON.parse(localStorage.getItem("employee"))
     }
 
     // socket = io('localhost:5000');

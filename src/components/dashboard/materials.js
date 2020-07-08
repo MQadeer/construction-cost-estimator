@@ -6,6 +6,7 @@ import store from "../../redux/store";
 import { connect } from "react-redux";
 import Architects from "./architects";
 import Builders from "./builders";
+import swal from "sweetalert";
 
 class Dashboard extends Component {
     state = {}
@@ -33,7 +34,12 @@ class Dashboard extends Component {
             })
         }
         else {
-            alert("Make some changes first to be updated ")
+
+            swal({
+                title: "Oops!",
+                text: "Make some changes first then update",
+                icon: "error",
+              });
         }
 
     }
