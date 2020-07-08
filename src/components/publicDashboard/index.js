@@ -57,7 +57,7 @@ class Pdashboard extends Component {
                             <Card.Body>
                                 <Card.Title style={{ textAlign: "center" }}>{item.employeeName}</Card.Title>
                                 <Card.Text style={{ height: 200, overflow: "auto" }}>
-                                    <ul style={{ listStyle: "none", }}>
+                                    <ul style={{ listStyle: "none",overflow:"auto" }}>
                                         {item.chat.map((item, index) => {
                                             return <li key={index}><p style={{ color: "lightgreen", display: "inline" }}>{item.user}: </p>
                                                 <p style={{ display: "inline" }}>{item.text}</p></li>
