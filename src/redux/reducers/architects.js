@@ -1,6 +1,6 @@
 import architectServices from "../services/architects";
 
-const architectsReducer = (state = { architects: [], chats: [], offers: [] }, action) => {
+const architectsReducer = (state = { architects: [], chats: [], architectsOffers: [] }, action) => {
     switch (action.type) {
         case "getArchitects":
             architectServices.getArchitects();
@@ -15,11 +15,11 @@ const architectsReducer = (state = { architects: [], chats: [], offers: [] }, ac
         console.log("chat reducer ",action.payload)
             architectServices.getChats(action.payload)
             return state
-        case "getOffers":
+        case "getOffersA":
             architectServices.getOffers(action.payload)
-            return { offers: [] }
+            return { architectsOffers: [] }
         case "offersRecieved":
-            return { offers: action.payload }
+            return { architectsOffers: action.payload }
         case "AchatsRecieved":
             console.log("chats in reducer", action.payload)
             return { chats: action.payload }

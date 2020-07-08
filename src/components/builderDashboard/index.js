@@ -6,17 +6,21 @@ import store from "../../redux/store";
 import { connect } from "react-redux";
 import config from "../../config";
 import history from "../../history";
+import BOffers from "./offers";
+import {Link} from "react-router-dom";
+
 
 class Dashboard extends Component {
     state = {}
 
-    componentWillMount() {
-
-        store.dispatch({
-            type: "getchatsB",
-            payload: { user: JSON.parse(localStorage.getItem("logedUser")) }
-        })
-    }
+    // componentWillMount() {
+    //     console.log("offers component")
+    //     const user=JSON.parse(localStorage.getItem("logedUser"))
+    //     store.dispatch({
+    //         type: "getOffersB",
+    //         payload: { id: user.id}
+    //     })
+    // }
     logOut = () => {
         store.dispatch({
             type: "logout",
@@ -43,14 +47,23 @@ class Dashboard extends Component {
                             style={{ height: 70, width: 140 }} />
                     </Navbar.Brand>
                     <Nav className="ml-auto" style={{ backgroundColor: "#0594a9", marginRight: "2%", borderRadius: 5 }} >
+                        <Button size="lg" variant="outline-dark" style={{ border: "none" }}>
+                            <Link to="/DashboardBuilders" style={{ color: "white",textDecoration:"none"}}>Offers</Link>
+                        </Button>
+                        <Button size="lg" variant="outline-dark" style={{ border: "none" }}>
+                            <Link to="/buildersDshboard/chats" style={{ color: "white",textDecoration:"none"}}>Chats</Link>
+                        </Button>                        
+                    </Nav>
+                    <Nav style={{ backgroundColor: "#0594a9", marginRight: "2%", borderRadius: 5 }} >
                         <Button size="lg" variant="outline-danger" style={{ color: "white", border: "none" }}
                             onClick={this.logOut}>Logout</Button>
                     </Nav>
                 </Navbar>
-                <div style={{ backgroundColor: "rgb(5, 148, 169)", marginTop: "2%", marginBottom: "2%", paddingTop: "2%", paddingBottom: "2%" }}>
+                <div style={{ backgroundColor: "rgb(5, 148, 169)", marginBottom: "2%", paddingTop: "2%", paddingBottom: "2%" }}>
                     <h1 style={{ color: "white", textAlign: "center" }}>Dashboard</h1>
                 </div>
-                <h2 style={{ textAlign: "center" }}>Chats</h2>
+                <BOffers/>
+                {/* <h2 style={{ textAlign: "center" }}>Chats</h2>
                 <Container>
                     {this.props.chats != undefined ? this.props.chats.map((item, index) => {
                         return <Card key={index} style={{ width: '18rem', float: "left", marginRight: "5%" }}>
@@ -70,8 +83,7 @@ class Dashboard extends Component {
                             </Card.Body>
                         </Card>
                     }) : null}
-                </Container>
-                {/* <Footer /> */}
+                </Container> */}
             </div>
         )
     }
@@ -81,7 +93,7 @@ const chatbox = (store) => {
     console.log("chats  ", store.architectsReducer.chats)
     return {
         logedIn: store.loginReducer.logedIn, user: store.loginReducer.user,
-        chats: store.buildersReducer.chats
+        offers: store.buildersReducer.buildersOffers
     }
 
 

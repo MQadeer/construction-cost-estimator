@@ -73,10 +73,10 @@ class Nbuilders extends Component {
  
     }
     store.dispatch({
-      type: "saveoffer",
+      type: "saveBuilderOffer",
       payload: {
         name: this.props.user.name, email: this.props.user.email, description: this.state.offer,
-        amount: this.state.amount, architectsId: this.state.architectsId
+        amount: this.state.amount, buildersId: this.state.buildersId
       }
     })
     this.handleClose();

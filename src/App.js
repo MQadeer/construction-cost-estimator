@@ -17,6 +17,8 @@ import AChats from "./components/architectDashboard/chats";
 import AOffers from "./components/architectDashboard/offers";
 import Builders from "./components/builders/index";
 import BuilderDashboard from "./components/builderDashboard/index";
+import BOffers from "./components/builderDashboard/offers";
+import BChats from "./components/builderDashboard/chats";
 import ContactUs from "./components/contactus/index";
 import PublicDashboard from "./components/publicDashboard/index";
 
@@ -36,9 +38,11 @@ function App() {
           <Route exact path='/architecturers' component={NArchitechturers}></Route>   
           <Route exact path='/DashboardArchitecturers/' component={ArchitectDashboard}></Route>
           <Route exact path='/architecturersDshboard/offers' component={AOffers}></Route>
-          <Route exact path='/architecturersDshboard/chats' component={AOffers}></Route>
-          <Route exact path='/builders' component={Builders}></Route>
+          <Route exact path='/architecturersDshboard/chats' component={AChats}></Route>
           <Route exact path='/DashboardBuilders' component={BuilderDashboard}></Route>
+          <Route exact path='/buildersDshboard/offers' component={BOffers}></Route>
+          <Route exact path='/buildersDshboard/chats' component={BChats}></Route>
+          <Route exact path='/builders' component={Builders}></Route>
           <Route exact path='/chatRoom' component={Chatbox}></Route>
           <Route exact path='/publicDashboard' component={PublicDashboard}></Route>
         </header>

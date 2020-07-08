@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import config from "../../config";
 import history from "../../history";
 
-class Aoffers extends Component {
+class Boffers extends Component {
     state = {
         showDescription: false
     }
@@ -16,7 +16,7 @@ class Aoffers extends Component {
         console.log("offers component")
         const user=JSON.parse(localStorage.getItem("logedUser"))
         store.dispatch({
-            type: "getOffersA",
+            type: "getOffersB",
             payload: { id: user.id}
         })
     }
@@ -58,7 +58,7 @@ class Aoffers extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.props.offers != undefined ? this.props.offers.map((item, index) => {
+                            {this.props.buildersOffers != undefined ? this.props.buildersOffers.map((item, index) => {
                                 return <tr id={item._id}>
                                     <td>{item.from.name}</td>
                                     <td>{item.from.email}</td>
@@ -95,11 +95,11 @@ const myOffers = (store) => {
     console.log("chats  ", store.architectsReducer.chats)
     return {
         logedIn: store.loginReducer.logedIn, user: store.loginReducer.user,
-        offers: store.architectsReducer.architectsOffers, architectsList: store.architectsReducer.architects
+        buildersOffers: store.buildersReducer.buildersOffers
     }
 
 
 }
 
-let AOffers = connect(myOffers)(Aoffers);
-export default AOffers;
+let BOffers = connect(myOffers)(Boffers);
+export default BOffers;
