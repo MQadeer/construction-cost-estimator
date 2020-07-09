@@ -23,7 +23,7 @@ export default class ContactUs extends Component {
       swal({
         title: "warning!",
         text: "please fill the complete form then submit",
-        icon: "success",
+        icon: "info",
       });
     }
     else{

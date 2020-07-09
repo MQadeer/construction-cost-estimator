@@ -38,12 +38,12 @@ class NcontactRequest extends Component {
   render() {
     return (
       <div style={{ marginBottom: "5%" }}>
-        <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Builders</h1>
-        {/* <Container style={{ marginTop: "1%", paddingBottom: "2%" }}>
+        <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Contact </h1>
+        <Container style={{ marginTop: "1%", paddingBottom: "2%" }}>
           <Table responsive style={{ marginTop: "2%" }}>
             <tbody>
 
-              {this.props.contactRequestsList.map((item) => {
+              {this.props.contactRequestsList != undefined ? this.props.contactRequestsList.map((item) => {
                 return <tr>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
@@ -52,7 +52,7 @@ class NcontactRequest extends Component {
                     <Button variant="danger" value={item._id} onClick={this.onDelete.bind(this)} style={{ marginRight: "2%" }}>Remove</Button>
                   </td>
                 </tr>
-              })}
+              }) : null}
 
             </tbody>
           </Table>
@@ -70,7 +70,7 @@ class NcontactRequest extends Component {
           <Modal.Footer>
             <Button onClick={this.closeDescription}>Close</Button>
           </Modal.Footer>
-        </Modal> */}
+        </Modal>
       </div>
 
     )

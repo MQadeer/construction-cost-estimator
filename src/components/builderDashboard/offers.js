@@ -21,7 +21,7 @@ class Boffers extends Component {
         })
     }
     showDescription = (e) => {
-        const offers = this.props.offers;
+        const offers = this.props.buildersOffers;
         const offer = offers.find(i => i._id === e.target.value)
         this.setState({
             info: offer.description,

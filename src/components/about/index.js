@@ -16,7 +16,7 @@ export default class About extends Component {
             </Row>
             <Row style={{fontSize:21}}>
                 <br/><p>
-                Gharsapna.pk aims at becoming one of the Pakistan’s leading property websites, 
+                H.C.E aims at becoming one of the Pakistan’s leading property websites, 
                 focussed on helping house-hunters in all tiers of the market find their next home with listings advertised
                  by individuals as well as most of the top estate and letting agents across Pakistan. 
                 Our platforms provide an easy to use but sophisticated online property search and other home solutions.
@@ -29,19 +29,19 @@ export default class About extends Component {
                  as per their needs.
                 </p>
                 <p>
-                At Gharsapna.pk, everything we do is aimed at providing an effective medium for users looking to buy,
-                 sell, rent or let quality properties, both in Pakistan and, at later stage, overseas. Gharsapna.pk 
+                At H.C.E, everything we do is aimed at providing an effective medium for users looking to buy,
+                 sell, rent or let quality properties, both in Pakistan and, at later stage, overseas. H.C.E 
                  aims at becoming the leading online destination for property consumers in the Pakistan and abroad 
                  looking to find top quality homes to buy and/or rent and to discover the Pakistan's leading estate 
                  and letting agents.
                 </p>
                 <p>
-                Gharsapna.pk aims to attract millions of visitors a month and advertise properties from all leading
+                H.C.E aims to attract millions of visitors a month and advertise properties from all leading
                  and trusted estate and letting agent branches. Our next destinations would be UAE and aim at extending
                   to other Gulf countries in next couple of years in shaa Allah.
                 </p>
                 <p>
-                Gharsapna.pk is founded in 2016 and has a highly-experienced management team including expertise 
+                H.C.E is founded in 2016 and has a highly-experienced management team including expertise 
                 from property and IT sector, led by Founder & CEO, Dost Muhammad.
                 </p>
             </Row>

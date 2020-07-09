@@ -20,19 +20,16 @@ class NChat extends Component {
 
     componentDidMount() {
         config.socket.on('message', message => {
-            console.log("did mount  ", message)
             this.setState({
                 messages: [...this.state.messages, message]
             });
         });
-        console.log("state ", this.state.messages)
     }
 
     onchange = (e) => {
         this.setState({
             message: e.target.value
         })
-        console.log(this.state)
     }
 
     onSendMessage = (e) => {

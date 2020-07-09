@@ -11,7 +11,6 @@ import Dashboard from './components/dashboard/index';
 import MaterialPricing from "./components/materialPrices/index";
 import NArchitechturers from "./components/architechturers/index";
 import Chatbox from "./components/chatbox/index";
-import ArchitectsChatbox from "./components/chatbox/architectChatbox";
 import ArchitectDashboard from "./components/architectDashboard/index";
 import AChats from "./components/architectDashboard/chats";
 import AOffers from "./components/architectDashboard/offers";

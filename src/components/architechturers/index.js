@@ -122,7 +122,7 @@ class Architechturers extends Component {
         <NavigationBar />
         <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Architechturers</h1>
         <Container fluid style={{ marginTop: "3%", paddingBottom: "5%" }}>
-          {this.props.architectsList.map((item, index) => {
+          {this.props.architectsList != undefined ? this.props.architectsList.map((item, index) => {
             return <Card key={index} style={{ width: '25rem', float: "left", marginRight: "3%", marginTop: "5%" }}>
               <Card.Img variant="top" />
               <Card.Body>
@@ -141,7 +141,7 @@ class Architechturers extends Component {
               </Card.Body>
             </Card>
 
-          })}
+          }) : null}
 
         </Container>
         <Modal show={this.state.show} onHide={this.handleClose}>

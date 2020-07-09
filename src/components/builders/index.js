@@ -125,7 +125,7 @@ class Nbuilders extends Component {
         <NavigationBar />
         <h1 style={{ textAlign: "center", marginTop: "2%", paddingBottom: "2%" }}>Builders</h1>
         <Container fluid style={{ marginTop: "3%", paddingBottom: "5%" }}>
-          {this.props.buildersList.map((item, index) => {
+          {this.props.buildersList != undefined ? this.props.buildersList.map((item, index) => {
             return <Card key={index} style={{ width: '25rem', float: "left", marginRight: "3%", marginTop: "5%" }}>
               <Card.Img variant="top" />
               <Card.Body>
@@ -144,7 +144,7 @@ class Nbuilders extends Component {
               </Card.Body>
 
             </Card>
-          })}
+          }) : null}
 
         </Container>
         <Modal show={this.state.show} onHide={this.handleClose}>
