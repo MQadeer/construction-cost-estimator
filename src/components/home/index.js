@@ -24,19 +24,19 @@ class Home extends Component {
       <>
         <NavigationBar logedIn={this.props.logedIn} userinfo={this.props.user} />
         {/* <CCE /> */}
-        <Carousel >
-          <Carousel.Item>
-          <img src={require(`../../images/6.jpg`)} class="d-block w-100" alt="..." />
+        <Carousel pause={false} interval={3000}  style={{height:450,width:"100%",overflow:"hidden"}}>
+          <Carousel.Item >
+          <img src={require(`../../images/7.jpg`)} class="d-block w-100"  alt="..." />
             {/* <Carousel.Caption>
               <h3>First slide label</h3>
               <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
             </Carousel.Caption> */}
           </Carousel.Item>
           <Carousel.Item>
-          <img src={require(`../../images/7.jpg`)} class="d-block w-100" alt="..." />
+          <img src={require(`../../images/3.jpg`)} class="d-block w-100" alt="..." />
           </Carousel.Item>
           <Carousel.Item>
-          <img src={require(`../../images/8.jpg`)} class="d-block w-100" alt="..." />
+          <img src={require(`../../images/4.jpg`)} class="d-block w-100" alt="..." />
           </Carousel.Item>
         </Carousel>
         <MultiImageSlider />

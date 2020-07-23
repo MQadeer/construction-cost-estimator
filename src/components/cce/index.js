@@ -22,6 +22,9 @@ class NCCE extends Component {
         kitchen: 0,
         kitchenD1: 0,
         kitchenD2: 0,
+        livingRoom: 0,
+        livingD1: 0,
+        livingD2: 0,
         floor: 1
     }
 
@@ -104,11 +107,12 @@ class NCCE extends Component {
         const roomsqft = (this.state.roomD1 * this.state.roomD2) * this.state.rooms
         const kitchensqft = (this.state.kitchenD1 * this.state.kitchenD2) * this.state.kitchen
         const bathsqft = (this.state.bathD1 * this.state.bathD2) * this.state.baths
-        const totalRoomsqft = roomsqft + kitchensqft + bathsqft
+        const livingsqft = (this.state.livingD1 * this.state.livingD2) * this.state.livingRoom
+        const totalRoomsqft = roomsqft + kitchensqft + bathsqft+livingsqft
 
         const marla = this.state.plotSize
         const sft = this.state.plotD1 * this.state.plotD2
-        const totalGivensqft = (marla * sft) * this.state.floor
+        const totalGivensqft = sft
         console.log(totalGivensqft, totalRoomsqft)
 
         if (totalGivensqft < totalRoomsqft) {
@@ -124,11 +128,12 @@ class NCCE extends Component {
         const roomMaterials = this.calculateRoomCost(this.state.roomD1, this.state.roomD2, this.state.rooms)
         const bathMaterials = this.calculateRoomCost(this.state.bathD1, this.state.bathD2, this.state.baths)
         const kitchenMaterials = this.calculateRoomCost(this.state.kitchenD1, this.state.kitchenD2, this.state.kitchen)
+        const livingRoomMaterials = this.calculateRoomCost(this.state.livingD1, this.state.livingD2, this.state.livingRoom)
 
         const totalMaterialsUsed = {
-            bricks: parseInt(roomMaterials.bricks + bathMaterials.bricks + kitchenMaterials.bricks),
-            cement: parseInt(roomMaterials.cement + bathMaterials.cement + kitchenMaterials.cement + roofMaterials.cement + floorMaterials.cement),
-            sand: parseInt(roomMaterials.sand + bathMaterials.sand + kitchenMaterials.sand + roofMaterials.sand + floorMaterials.sand),
+            bricks: parseInt(roomMaterials.bricks + bathMaterials.bricks + kitchenMaterials.bricks+livingRoomMaterials.bricks),
+            cement: parseInt(roomMaterials.cement + bathMaterials.cement + kitchenMaterials.cement+livingRoomMaterials.cement + roofMaterials.cement + floorMaterials.cement),
+            sand: parseInt(roomMaterials.sand + bathMaterials.sand + kitchenMaterials.sand +livingRoomMaterials.sand+ roofMaterials.sand + floorMaterials.sand),
             crush: parseInt(roofMaterials.crush + floorMaterials.crush),
             iron: parseInt(roofMaterials.iron)
         }
@@ -159,12 +164,12 @@ class NCCE extends Component {
                 <NavigationBar />
                 <div style={{
                     backgroundImage: `url(${image1})`,
-                    width: "100%", height: "100%", paddingTop: "10%", paddingBottom: "5%"
+                    width: "100%", height: "80%", paddingTop: "5%", paddingBottom: "5%"
                 }}>
                     <Container style={{ backgroundColor: "rgba(0, 0, 0, 0.8)", borderRadius: 10, padding: "1%" }}>
                         <Row><h1 style={{ margin: "auto", verticalAlign: "center", color: "white" }}>Construction Cost Estimator</h1></Row>
                         <Row style={{ marginTop: "3%" }}>
-                            <Col md style={{ borderRight: "1px solid white", color: "white" }}>
+                            <Col md style={{ borderRight: "1px solid ", color: "white" }}>
                                 <Row><h5 style={{ color: "#ffd700", margin: "auto", verticalAlign: "center" }}>
                                     Please fill the required fields</h5>
                                 </Row>
@@ -184,7 +189,7 @@ class NCCE extends Component {
                                         </Col>
                                         <Col>
                                             <Form.Label>Total Area</Form.Label>
-                                            <Form.Control type="number" id="totalArea" value={(this.state.plotD1 * this.state.plotD2) * this.state.plotSize}
+                                            <Form.Control type="number" id="totalArea" value={(this.state.plotD1 * this.state.plotD2) }
                                                 onChange={this.onchange.bind(this, "totalArea")} />
                                         </Col>
                                         <Col >
@@ -240,6 +245,22 @@ class NCCE extends Component {
                                         </Col>
                                         
                                     </Form.Row>
+                                    <hr style={{ borderBottom: "2px solid white" }} />
+                                    <Form.Row>
+                                        <Col>
+                                            <Form.Label>No. of LivingRooms</Form.Label>
+                                            <Form.Control type="number" onChange={this.onchange.bind(this, "livingRoom")} />
+                                        </Col>
+                                        <Col md>
+                                            <Form.Label>Dimensions (e.g 12x10)</Form.Label>
+                                            <Form.Control placeholder="12" type="number" onChange={this.onchange.bind(this, "livingD1")} />
+                                        </Col>
+                                        <Col>
+                                            <Form.Label>Dimensions (e.g 12x10)</Form.Label>
+                                            <Form.Control placeholder="10" type="number" onChange={this.onchange.bind(this, "livingD2")} />
+                                        </Col>
+                                        
+                                    </Form.Row>
                                 </Form>
                             </Col>
                         </Row>
@@ -267,7 +288,7 @@ class NCCE extends Component {
                             <h4 style={{ textAlign: "center", color: "#007bff" }}>Prices Used </h4>
                             <Table responsive>
                                 <tbody>
-                                    {this.props.allMaterials.slice(0, 8).map((item) => {
+                                    {this.props.allMaterials.slice(0, 7).map((item) => {
 
                                         return <tr>
                                             {/* <td>{index+1}</td> */}
@@ -279,9 +300,9 @@ class NCCE extends Component {
                                     })}
                                 </tbody>
                             </Table>
-                            <p>
-                                note: This cost is an estimate of grey structure of a double story house and prices of high quality material were used so,
-                                if you want a more detailed or complete estimate please login and contact our architects. Thank you
+                            <p style={{color:'red'}}>
+                                note: This cost is an estimate of grey structure of house without including labour cost and prices of high quality material were used so,
+                                if you want a more detailed or complete estimate please login and contact our architects or builders. Thank you
                         </p>
                         </Modal.Body>
                         <Modal.Footer>
