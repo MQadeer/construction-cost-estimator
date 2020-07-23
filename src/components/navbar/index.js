@@ -118,7 +118,7 @@ function NavigationBar(props) {
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/materialsPage" >Material Price</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/architecturers" >Architecturers</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/builders" >builders</Link></Nav.Link>
-                    <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/" >Cost Estimator</Link></Nav.Link>
+                    <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/costEstimator" >Cost Estimator</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/about">About Us</Link></Nav.Link>
                     <Nav.Link as="div" className={classes.items}><Link className={classes.items} to="/contactus">Contact us</Link></Nav.Link>
                     {

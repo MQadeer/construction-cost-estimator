@@ -20,6 +20,7 @@ import BOffers from "./components/builderDashboard/offers";
 import BChats from "./components/builderDashboard/chats";
 import ContactUs from "./components/contactus/index";
 import PublicDashboard from "./components/publicDashboard/index";
+import CCE from "./components/cce/index";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route exact path='/builders' component={Builders}></Route>
           <Route exact path='/chatRoom' component={Chatbox}></Route>
           <Route exact path='/publicDashboard' component={PublicDashboard}></Route>
+          <Route exact path='/costEstimator' component={CCE}></Route>
         </header>
       </Router>
     </Provider>

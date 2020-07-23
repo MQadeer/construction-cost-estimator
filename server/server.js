@@ -14,7 +14,7 @@ const http = require('http');
 const socketio = require('socket.io');
 const MongoClient = require('mongodb').MongoClient;
 const uri = require("./db/db");
-const uuid = require("uuid/v4")
+const uuid = require("uuid").v4
 const app = http.createServer(server);
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
